@@ -283,17 +283,11 @@ main:focus {
 .nav__link {
 	position: relative;
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 2px;
 	height: var(--nav-h);
 	color: var(--muted);
 	text-decoration: none;
-}
-
-.nav__no {
-	font-size: 10px;
 }
 
 .nav__link:hover,
@@ -340,8 +334,6 @@ main:focus {
 		gap: 4px;
 	}
 	.nav__link {
-		flex-direction: row;
-		gap: 8px;
 		height: 44px;
 		padding-inline: 12px;
 	}
@@ -359,35 +351,8 @@ main:focus {
 	}
 }
 
-/* ---------- Sheet bar ---------- */
-
-.sheetbar {
-	display: flex;
-	gap: 16px;
-	padding-block: 12px;
-	border-bottom: 1px solid var(--line);
-	color: var(--muted);
-	margin-bottom: clamp(40px, 7vw, 88px);
-}
-
-.sheetbar__no {
-	color: var(--paper);
-	white-space: nowrap;
-}
-
-.sheetbar__label {
-	flex: 1;
-	min-width: 0;
-}
-
-.sheetbar__rev {
-	white-space: nowrap;
-}
-
-@media (max-width: 639px) {
-	.sheetbar__rev {
-		display: none;
-	}
+main {
+	padding-top: clamp(32px, 6vw, 72px);
 }
 
 /* ---------- Buttons and links ---------- */
@@ -494,7 +459,6 @@ main:focus {
 		top: 24px;
 	}
 	.band > .band__body,
-	.band > .heading-list,
 	.band > .band__more {
 		grid-column: 5 / 13;
 	}
@@ -505,18 +469,6 @@ main:focus {
 
 .section-head {
 	margin-bottom: 32px;
-}
-
-.section-head__no {
-	display: inline-grid;
-	place-items: center;
-	width: 30px;
-	height: 30px;
-	margin: 0 0 16px;
-	border: 1px solid var(--muted);
-	border-radius: 50%;
-	color: var(--paper);
-	letter-spacing: 0;
 }
 
 .section-head__title {
@@ -538,51 +490,73 @@ main:focus {
 
 /* ---------- Home ---------- */
 
+/* Phone: name, then portrait beside the spec list, then the bio.
+   Desktop: portrait on the left; name, bio and spec on the right, sized so
+   all three fit in the first screen. */
 .hero {
+	display: grid;
+	grid-template-columns: repeat(var(--cols), 1fr);
+	grid-template-areas:
+		"name name name name"
+		"portrait portrait spec spec"
+		"text text text text";
+	column-gap: var(--col-gap);
+	row-gap: 28px;
 	padding-bottom: var(--band);
 }
 
-/* Sized from the measured line so the name spans the sheet exactly:
-   "JINHUN" is 4.18em wide at 112% stretch; "JINHUN HEO" is 7.76em at 125%. */
 .hero__name {
-	font-size: calc((100vw - 2 * var(--gutter)) * 0.234);
-	font-stretch: 112%;
-	line-height: 0.88;
-	margin-bottom: clamp(28px, 5vw, 64px);
+	grid-area: name;
+	/* "JINHUN HEO" is 7.76em wide at full stretch: fill the phone width. */
+	font-size: calc((100vw - 2 * var(--gutter)) * 0.126);
+	white-space: nowrap;
 }
 
-.hero__name span {
+.hero__portrait {
+	grid-area: portrait;
+	align-self: center;
+}
+
+.portrait {
 	display: block;
+	aspect-ratio: 1;
+	overflow: hidden;
+	border-radius: 50%;
+	background: var(--ink-2);
 }
 
-@media (min-width: 640px) {
-	.hero__name {
-		font-size: calc((min(100vw, var(--maxw)) - 2 * var(--gutter)) * 0.1265);
-		font-stretch: 125%;
-		white-space: nowrap;
-	}
-	.hero__name span {
-		display: inline;
-	}
+.portrait img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
-.hero__grid {
-	display: grid;
-	grid-template-columns: repeat(var(--cols), 1fr);
-	column-gap: var(--col-gap);
-	row-gap: 32px;
+.hero__text {
+	grid-area: text;
+}
+
+.hero__bio {
+	max-width: 62ch;
+	margin: 0;
+	font-size: clamp(18px, 0.5vw + 15px, 21px);
+	line-height: 1.55;
+	text-wrap: pretty;
+}
+
+.hero__availability {
+	margin: 18px 0 0;
+	color: var(--muted);
 }
 
 .hero__spec {
-	grid-column: 1 / 3;
-	grid-row: 1;
-	align-self: end;
+	grid-area: spec;
+	align-self: center;
 	margin: 0;
 	border-top: 1px solid var(--line);
 }
 
 .hero__spec div {
-	padding-block: 10px;
+	padding-block: 9px;
 	border-bottom: 1px solid var(--line);
 }
 
@@ -594,41 +568,27 @@ main:focus {
 	margin: 2px 0 0;
 }
 
-.hero__portrait {
-	grid-column: 3 / 5;
-	grid-row: 1;
-}
-
-.hero__text {
-	grid-column: 1 / -1;
-}
-
-.lede {
-	max-width: 36ch;
-	margin: 0;
-	font-size: clamp(21px, 1.6vw + 14px, 32px);
-	font-weight: 350;
-	line-height: 1.32;
-	text-wrap: pretty;
-}
-
-.hero__availability {
-	margin: 20px 0 0;
-	color: var(--muted);
-}
-
 @media (min-width: 960px) {
-	.hero__portrait {
-		grid-column: 1 / 5;
-		grid-row: 1 / 3;
+	.hero {
+		grid-template-areas:
+			"portrait portrait portrait portrait portrait name name name name name name name"
+			"portrait portrait portrait portrait portrait text text text text text text text"
+			"portrait portrait portrait portrait portrait spec spec spec spec spec spec spec";
+		grid-template-rows: auto auto auto;
+		row-gap: 24px;
+		align-items: start;
 	}
-	.hero__text {
-		grid-column: 6 / 13;
-		grid-row: 1;
+	.hero__name {
+		/* Fits the seven right-hand columns. */
+		font-size: calc((min(100vw, var(--maxw)) - 2 * var(--gutter)) * 0.0715);
+		align-self: end;
+	}
+	.hero__portrait {
+		/* Never taller than the first screen allows. */
+		width: min(100%, max(260px, 100vh - 330px));
+		justify-self: start;
 	}
 	.hero__spec {
-		grid-column: 6 / 13;
-		grid-row: 2;
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		column-gap: var(--col-gap);
@@ -638,49 +598,6 @@ main:focus {
 		border-top: 1px solid var(--line);
 		border-bottom: 0;
 	}
-}
-
-.heading-list {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	border-top: 1px solid var(--line);
-}
-
-.heading-list__item {
-	display: grid;
-	grid-template-columns: 3.2em 1fr;
-	align-items: baseline;
-	padding-block: 18px;
-	border-bottom: 1px solid var(--line);
-}
-
-.heading-list__no {
-	color: var(--muted);
-}
-
-.heading-list__text {
-	font-size: clamp(22px, 3vw + 8px, 48px);
-	font-stretch: 125%;
-	font-weight: 300;
-	line-height: 1.05;
-	text-transform: uppercase;
-	text-wrap: balance;
-}
-
-.edu__school {
-	margin: 0;
-	font-size: clamp(20px, 1vw + 16px, 26px);
-	font-stretch: 112%;
-	text-transform: uppercase;
-}
-
-.edu p {
-	margin: 0 0 6px;
-}
-
-.edu__meta {
-	color: var(--muted);
 }
 
 /* ---------- Dimension callouts ---------- */
@@ -712,33 +629,6 @@ main:focus {
 	gap: 10px;
 	padding-block: 28px;
 	border-bottom: 1px solid var(--line);
-}
-
-.dims__item:has(.dims__link) {
-	padding: 0;
-}
-
-.dims__link {
-	display: grid;
-	gap: 10px;
-	padding-block: 28px;
-	text-decoration: none;
-}
-
-.dims__label {
-	font-size: 17px;
-}
-
-.dims__source {
-	color: var(--muted);
-}
-
-.dims__link:hover .dims__label {
-	text-decoration: underline;
-}
-
-.dims__link:hover .dims__source {
-	color: var(--paper);
 }
 
 .dim {
@@ -827,23 +717,16 @@ main:focus {
 .register__row {
 	position: relative;
 	display: grid;
-	grid-template-columns: 3.6em 1fr;
+	grid-template-columns: 1fr;
 	grid-template-areas:
-		"no title"
-		"no org"
-		"no meta"
-		"no figure";
-	column-gap: 12px;
+		"title"
+		"org"
+		"meta"
+		"figure";
 	row-gap: 6px;
 	padding-block: 22px;
 	border-bottom: 1px solid var(--line);
 	transition: background-color 0.2s;
-}
-
-.register__no {
-	grid-area: no;
-	padding-top: 6px;
-	color: var(--muted);
 }
 
 .register__title {
@@ -877,10 +760,6 @@ main:focus {
 
 .register__row:hover {
 	background: var(--ink-2);
-}
-
-.register__row:hover .register__no {
-	color: var(--signal);
 }
 
 .register__summary {
@@ -939,12 +818,18 @@ main:focus {
 
 @media (min-width: 960px) {
 	.register__row {
-		grid-template-columns: 5em minmax(0, 5fr) minmax(0, 3fr) minmax(0, 3fr);
+		grid-template-columns: minmax(0, 6fr) minmax(0, 3fr) minmax(0, 3fr);
 		grid-template-areas:
-			"no title meta figure"
-			"no org meta figure";
+			"title meta figure"
+			"org meta figure";
 		column-gap: var(--col-gap);
-		padding: 26px 16px 26px 0;
+		padding-block: 26px;
+	}
+	/* Hover fill reaches a little past the text without moving the rules. */
+	.register__row:hover {
+		box-shadow:
+			-16px 0 0 var(--ink-2),
+			16px 0 0 var(--ink-2);
 	}
 	.register__meta {
 		flex-direction: column;
@@ -1006,6 +891,15 @@ main:focus {
 	line-height: 0.98;
 }
 
+.lede {
+	max-width: 44ch;
+	margin: 0;
+	font-size: clamp(19px, 0.9vw + 15px, 26px);
+	font-weight: 350;
+	line-height: 1.35;
+	text-wrap: pretty;
+}
+
 .project__head .lede {
 	margin-top: 28px;
 	max-width: 44ch;
@@ -1048,7 +942,7 @@ main:focus {
 
 @media (min-width: 960px) {
 	.titleblock {
-		grid-template-columns: 0.6fr 0.8fr 1.5fr 1.3fr 1fr 1.6fr 0.6fr;
+		grid-template-columns: 0.8fr 1.6fr 1.3fr 1fr 1.6fr;
 	}
 	.titleblock__cell:last-child:nth-child(odd) {
 		grid-column: auto;
@@ -1156,35 +1050,16 @@ main:focus {
 	object-fit: cover;
 }
 
+/* White CAD viewport backgrounds blend into the paper plate. */
 .plate--cad img {
-	filter: grayscale(1) contrast(1.04);
 	mix-blend-mode: multiply;
 }
 
-.plate--photo img {
-	filter: grayscale(1) contrast(1.06);
-	transition: filter 0.6s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-	.plate--photo:hover img {
-		filter: none;
-	}
-}
-
 .plate__caption {
-	display: flex;
-	gap: 12px;
 	padding-top: 12px;
 	color: var(--muted);
 	font-size: 15px;
 	line-height: 1.4;
-}
-
-.plate__no {
-	flex: none;
-	padding-top: 2px;
-	color: var(--paper);
 }
 
 .plate__open {
@@ -1443,7 +1318,7 @@ main:focus {
 
 @media (min-width: 960px) {
 	.footer__block {
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 	}
 }
 
@@ -1557,7 +1432,6 @@ main:focus {
 		}
 
 		.register__row,
-		.heading-list__item,
 		.plate,
 		.cv-entry {
 			animation: lift linear both;

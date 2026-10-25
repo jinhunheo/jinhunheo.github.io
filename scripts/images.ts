@@ -23,7 +23,7 @@ const ogDir = path.join(root, "public", "og");
 const ogManifestFile = path.join(root, "src", "generated", "og.json");
 const WIDTHS = [400, 640, 800, 1200, 1600];
 /** Bump to force every social image to be redrawn after a design change. */
-const OG_DESIGN = 6;
+const OG_DESIGN = 8;
 
 fs.mkdirSync(outDir, { recursive: true });
 fs.mkdirSync(ogDir, { recursive: true });
@@ -94,9 +94,8 @@ const C = { ink: "#0b0b0b", line: "#2c2c2c", muted: "#a3a39e", paper: "#efeee9",
 
 const content = loadContent(root);
 const pages = renderPages({ content, mode: "development", url: "", date: new Date(0) });
-const headshot = await sharp(path.join(mediaDir, "headshot.jpg"))
-	.resize({ width: 420, height: 560, fit: "cover", position: "top" })
-	.grayscale()
+const headshot = await sharp(path.join(mediaDir, "headshot-round.jpg"))
+	.resize({ width: 400, height: 400, fit: "cover" })
 	.jpeg({ quality: 85 })
 	.toBuffer();
 const headshotUri = `data:image/jpeg;base64,${headshot.toString("base64")}`;
@@ -110,7 +109,7 @@ function ogTree(og: (typeof pages)[number]["og"]): Node {
 	const left = h(
 		"div",
 		{ flexDirection: "column", justifyContent: "space-between", flexGrow: 1 },
-		h("div", { gap: 28 }, mono(`Sheet ${og.sheet}`, C.paper), mono(isHome ? "Index" : content.site.name)),
+		isHome ? mono("Portfolio", C.paper) : h("div", { gap: 28 }, mono(content.site.name, C.paper), mono(og.label)),
 		h(
 			"div",
 			{ fontFamily: "Archivo", fontWeight: 300, fontSize: titleSize, lineHeight: 1, color: C.paper, textTransform: "uppercase", maxWidth: isHome ? 640 : 1040 },
@@ -134,23 +133,23 @@ function ogTree(og: (typeof pages)[number]["og"]): Node {
 			{ flexGrow: 1, margin: 40, border: `1px solid ${C.line}`, padding: 44, gap: 40 },
 			left,
 			isHome
-				? h("div", { width: 340, flexShrink: 0 }, {
+				? h("div", { width: 360, flexShrink: 0, alignItems: "center" }, {
 						type: "img",
-						props: { src: headshotUri, width: 340, height: 462, style: { objectFit: "cover" } },
+						props: { src: headshotUri, width: 360, height: 360, style: { borderRadius: 180 } },
 					})
 				: h("div", { width: 0 }),
 		),
 	);
 }
 
-type OgRecord = { key: string; sheet: string; title: string };
+type OgRecord = { key: string; label: string; title: string };
 const ogPrevious = readJson<Record<string, OgRecord>>(ogManifestFile, {});
 const ogManifest: Record<string, OgRecord> = {};
 for (const page of pages) {
 	const { og } = page;
 	if (ogManifest[og.id]) continue;
-	const key = hash(JSON.stringify({ og, design: OG_DESIGN, headshot: manifest.headshot?.source }));
-	ogManifest[og.id] = { key, sheet: og.sheet, title: og.title };
+	const key = hash(JSON.stringify({ og, design: OG_DESIGN, headshot: manifest["headshot-round"]?.source }));
+	ogManifest[og.id] = { key, label: og.label, title: og.title };
 	const file = path.join(ogDir, `${og.id}.jpg`);
 	if (ogPrevious[og.id]?.key === key && fs.existsSync(file)) continue;
 	const svg = await satori(ogTree(og) as Parameters<typeof satori>[0], { width: 1200, height: 630, fonts });

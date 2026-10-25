@@ -6,26 +6,11 @@ home:
     description: >-
       Mechanical engineering student at UT Austin, minoring in robotics. I design robot
       hardware (mounts, enclosures, linkages) and the control and vision code that runs on it.
-  sheet: Index
-  lede: >-
-    Second-year mechanical engineering student at UT Austin, minoring in robotics.
-    I design the parts that hold robots together, and write the control and vision
-    code that makes them useful.
+  bio: >-
+    I am a second year mechanical engineering student with a minor in robotics at the University of Texas at Austin. I have hands-on experience in robotics and 3D design from university research lab and various technical student organization involvement. I am also a great team collaborator and love sharing my ideas with others. I am passionate about multiple things and currently I am very eager to work in the intersection of nuclear engineering and robotics, robot hardware advancement as well as medical devices and optics development.
   headshot:
-    image: headshot
+    image: headshot-round
     alt: Jinhun Heo in a dark suit and tie against a charcoal backdrop.
-    caption: Jinhun Heo, Austin, Texas
-  headed:
-    title: Where I want to work
-    intro: The fields I'm building toward.
-  measured:
-    title: Measured
-    intro: Results from the work, each one linked to the project it came from.
-  work:
-    title: Work
-    intro: Internship, research and student-team projects, newest first.
-  education:
-    title: Education
   contact:
     title: Get in touch
     text: Email is the fastest way to reach me. I'm also on my mobile and LinkedIn.
@@ -36,7 +21,6 @@ resume:
     description: >-
       Resume of Jinhun Heo: BS Mechanical Engineering with a robotics minor at UT Austin
       (expected May 2029), with research in robot hardware, controls and computer vision.
-  sheet: Resume
   title: Resume
   intro: >-
     The same resume as the PDF, readable on any screen. Each project links to its
@@ -49,10 +33,9 @@ projects:
       Internship, research and student-team projects by Jinhun Heo: hardware for a field
       robot, a reaction wheel platform, human re-identification on a humanoid robot and a
       Baja SAE throttle pedal.
-  sheet: Projects
   title: Projects
   intro: >-
-    Internship, research and student-team work, newest first. Each sheet covers the
+    Internship, research and student-team work, newest first. Each project covers the
     problem, what I built and how it measured up.
 
 contact:
@@ -61,7 +44,6 @@ contact:
     description: >-
       Email, phone and LinkedIn for Jinhun Heo, mechanical engineering and robotics
       student at UT Austin.
-  sheet: Contact
   title: Contact
   intro: >-
     Email is the fastest way to reach me. You can also call my mobile or message me
@@ -70,7 +52,6 @@ contact:
 notFound:
   seo:
     title: Page not found · Jinhun Heo
-    description: There is no page at this address on Jinhun Heo's portfolio. Try the index or the projects list.
-  sheet: Not found
-  title: Sheet not found
+    description: There is no page at this address on Jinhun Heo's portfolio. Try the home page or the projects list.
+  title: Page not found
   text: There's no page at this address. It may have moved, or the link has a typo.

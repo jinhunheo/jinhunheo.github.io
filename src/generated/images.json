@@ -1,4 +1,45 @@
 {
+	"headshot-round": {
+		"width": 900,
+		"height": 900,
+		"source": "3c1830c04138cf16",
+		"avif": [
+			{
+				"width": 400,
+				"file": "headshot-round-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "headshot-round-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "headshot-round-800.avif"
+			},
+			{
+				"width": 900,
+				"file": "headshot-round-900.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "headshot-round-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "headshot-round-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "headshot-round-800.webp"
+			},
+			{
+				"width": 900,
+				"file": "headshot-round-900.webp"
+			}
+		]
+	},
 	"headshot": {
 		"width": 1086,
 		"height": 1448,

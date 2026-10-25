@@ -1,42 +1,42 @@
 {
 	"home": {
-		"key": "8d9b3857aaa5a625",
-		"sheet": "01",
+		"key": "9b27c7f795772835",
+		"label": "Home",
 		"title": "Jinhun Heo"
 	},
 	"resume": {
-		"key": "6313ace252addd19",
-		"sheet": "02",
+		"key": "8a790b39eba97f42",
+		"label": "Resume",
 		"title": "Resume"
 	},
 	"projects": {
-		"key": "1902c44507be2977",
-		"sheet": "03",
+		"key": "80033344f1d08765",
+		"label": "Projects",
 		"title": "Projects"
 	},
 	"project-robotic-vision-lab": {
-		"key": "bb0b0019ba96d155",
-		"sheet": "03.1",
+		"key": "67ddb71d6cf953c4",
+		"label": "Projects",
 		"title": "Sensor mounts and enclosures for a field robot"
 	},
 	"project-reaction-wheel": {
-		"key": "e04d67c8bcada879",
-		"sheet": "03.2",
+		"key": "3c3bfd928c7b5508",
+		"label": "Projects",
 		"title": "Reaction wheel platform with vision tracking"
 	},
 	"project-human-re-identification": {
-		"key": "07e715f5e80bdcfd",
-		"sheet": "03.3",
+		"key": "3c876f520684f9c3",
+		"label": "Projects",
 		"title": "Human re-identification on a humanoid robot"
 	},
 	"project-baja-pedal-box": {
-		"key": "b3ce6ec1b0f422f6",
-		"sheet": "03.4",
+		"key": "f5ec590920666307",
+		"label": "Projects",
 		"title": "Throttle pedal assembly for a Baja SAE car"
 	},
 	"contact": {
-		"key": "1aa27ab9de47c7c9",
-		"sheet": "04",
+		"key": "f575f09e3534ea6f",
+		"label": "Contact",
 		"title": "Contact"
 	}
 }

@@ -1,7 +1,7 @@
 // The drawing-set vocabulary from DESIGN.md: pictures, dimension callouts,
 // title blocks, the project register and figure plates.
 import type { Content, Figure, ImageEntry, Metric, Project } from "./content.ts";
-import { html, pad, raw, text, type Raw } from "./html.ts";
+import { html, raw, text, type Raw } from "./html.ts";
 
 const IMG_BASE = "/src/generated/img/";
 
@@ -42,47 +42,33 @@ export function dimension(metric: Metric): Raw {
 	</span>`;
 }
 
-export function metricList(metrics: { metric: Metric; project?: Project }[], className = ""): Raw {
+export function metricList(metrics: Metric[], className = ""): Raw {
 	return html`<ul class="dims ${className}" role="list">
-		${metrics.map(({ metric, project }) =>
-			project
-				? html`<li class="dims__item">
-						<a class="dims__link" href="/projects/${project.slug}/">
-							${dimension(metric)}
-							<span class="dims__label">${metric.label}</span>
-							<span class="dims__source mono">${project.register}</span>
-						</a>
-					</li>`
-				: html`<li class="dims__item">
-						${dimension(metric)}
-						<span class="dims__label">${metric.label}</span>
-					</li>`,
+		${metrics.map(
+			(metric) => html`<li class="dims__item">
+				${dimension(metric)}
+				<span class="dims__label">${metric.label}</span>
+			</li>`,
 		)}
 	</ul>`;
 }
 
-export function sectionHead(id: string, title: string, intro?: string, no?: string): Raw {
+export function sectionHead(id: string, title: string, intro?: string): Raw {
 	return html`<header class="section-head">
-		${no ? html`<p class="section-head__no mono" aria-hidden="true">${no}</p>` : ""}
 		<h2 class="section-head__title" id="${id}">${title}</h2>
 		${intro ? html`<p class="section-head__intro">${text(intro)}</p>` : ""}
 	</header>`;
 }
 
-/** Bill-of-materials style list of projects. The whole row is the link target. */
-export function register(content: Content, projects: Project[], o: { showCategory: boolean; headingLevel: 2 | 3 }): Raw {
-	const all = content.projects;
+/** Bill-of-materials style list of projects (h3 rows). The whole row is the link target. */
+export function register(projects: Project[]): Raw {
 	return html`<ol class="register" role="list">
 		${projects.map((p) => {
 			const featured = p.metrics.find((m) => m.featured) ?? p.metrics[0];
-			const no = `03.${all.indexOf(p) + 1}`;
-			const title = html`<a class="register__link" href="/projects/${p.slug}/">${p.register}</a>`;
 			return html`<li class="register__row">
-				<span class="register__no mono" aria-hidden="true">${no}</span>
-				${o.headingLevel === 2 ? html`<h2 class="register__title">${title}</h2>` : html`<h3 class="register__title">${title}</h3>`}
+				<h3 class="register__title"><a class="register__link" href="/projects/${p.slug}/">${p.register}</a></h3>
 				<p class="register__summary">${p.org}</p>
 				<dl class="register__meta mono">
-					${o.showCategory ? html`<div><dt>Type</dt><dd>${content.site.categories[p.category]}</dd></div>` : ""}
 					<div><dt>Role</dt><dd>${p.role}</dd></div>
 					<div><dt>Dates</dt><dd>${p.dates}</dd></div>
 				</dl>
@@ -95,15 +81,13 @@ export function register(content: Content, projects: Project[], o: { showCategor
 }
 
 /** The project's title block: the corner table of a drawing, as a grid. */
-export function titleBlock(content: Content, p: Project, sheet: string): Raw {
-	const rows: [string, Raw | string][] = [
-		["Sheet", sheet],
+export function titleBlock(content: Content, p: Project): Raw {
+	const rows: [string, string][] = [
 		["Type", content.site.categories[p.category] ?? p.category],
 		["Organisation", p.org],
 		["Role", p.role],
 		["Dates", p.dates],
 		["Tools", p.tools.join(" · ")],
-		["Figures", p.figures.length ? pad(p.figures.length) : "—"],
 	];
 	return html`<dl class="titleblock">
 		${rows.map(([k, v]) => html`<div class="titleblock__cell"><dt class="mono">${k}</dt><dd>${v}</dd></div>`)}
@@ -155,7 +139,7 @@ export function figures(content: Content, p: Project): Raw {
 					: "(min-width: 1440px) 680px, (min-width: 640px) 50vw, 100vw";
 			return html`<figure class="plate plate--${f.kind} plate--${orientation} plate--span-${span}">
 				<div class="plate__frame">${picture(content, f.image, { alt: f.alt, sizes })}</div>
-				<figcaption class="plate__caption"><span class="plate__no mono">Fig. ${pad(i + 1)}</span> ${text(f.caption)}</figcaption>
+				<figcaption class="plate__caption">${text(f.caption)}</figcaption>
 			</figure>`;
 		})}
 	</div>`;

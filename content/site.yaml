@@ -44,7 +44,7 @@ categories:
   team: Student team
 
 nav:
-  - { label: Index, href: / }
+  - { label: Home, href: / }
   - { label: Resume, href: /resume/ }
   - { label: Projects, href: /projects/ }
   - { label: Contact, href: /contact/ }

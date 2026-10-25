@@ -29,7 +29,6 @@ export interface Site {
 
 interface PageCopy {
 	seo: SeoCopy;
-	sheet: string;
 	title: string;
 	intro: string;
 }
@@ -37,19 +36,14 @@ interface PageCopy {
 export interface Pages {
 	home: {
 		seo: SeoCopy;
-		sheet: string;
-		lede: string;
-		headshot: { image: string; alt: string; caption: string };
-		headed: { title: string; intro: string };
-		measured: { title: string; intro: string };
-		work: { title: string; intro: string };
-		education: { title: string };
+		bio: string;
+		headshot: { image: string; alt: string };
 		contact: { title: string; text: string };
 	};
 	resume: PageCopy;
 	projects: PageCopy;
 	contact: PageCopy;
-	notFound: { seo: SeoCopy; sheet: string; title: string; text: string };
+	notFound: { seo: SeoCopy; title: string; text: string };
 }
 
 export interface ResumeEntry {

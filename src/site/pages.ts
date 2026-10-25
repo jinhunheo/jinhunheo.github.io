@@ -1,6 +1,6 @@
 import { dimension, figures, metricList, picture, register, sectionHead, titleBlock } from "./components.ts";
 import type { Project, ResumeEntry } from "./content.ts";
-import { html, pad, text, type Raw } from "./html.ts";
+import { html, text, type Raw } from "./html.ts";
 import { layout } from "./layout.ts";
 import { markdownSections } from "./markdown.ts";
 import { breadcrumbs, person, profilePage, type RenderContext } from "./seo.ts";
@@ -10,7 +10,7 @@ export interface PageOut {
 	/** Output path relative to the site root, e.g. "resume/index.html". */
 	file: string;
 	/** Social preview id and the text drawn on it. */
-	og: { id: string; sheet: string; title: string; metric?: { value: string; unit: string; label: string } };
+	og: { id: string; label: string; title: string; metric?: { value: string; unit: string; label: string } };
 	html: string;
 }
 
@@ -38,80 +38,42 @@ function contactLinks(ctx: RenderContext, big: boolean): Raw {
 }
 
 export function home(ctx: RenderContext): PageOut {
-	const { site, pages, projects, resume } = ctx.content;
+	const { site, pages, resume } = ctx.content;
 	const copy = pages.home;
-	const featured = projects.flatMap((project) =>
-		project.metrics.filter((m) => m.featured).map((metric) => ({ metric, project })),
-	);
-	const [first, ...rest] = site.name.split(" ");
 	const body = html`
 	<section class="hero" aria-labelledby="name">
-		<h1 class="hero__name display" id="name"><span>${first}</span> <span>${rest.join(" ")}</span></h1>
-		<div class="hero__grid">
-			<figure class="hero__portrait plate plate--photo">
-				<div class="plate__frame">${picture(ctx.content, copy.headshot.image, { alt: copy.headshot.alt, sizes: "(min-width: 1000px) 28vw, 46vw", priority: true })}</div>
-				<figcaption class="plate__caption"><span class="plate__no mono">Fig. 01</span> ${copy.headshot.caption}</figcaption>
-			</figure>
-			<div class="hero__text">
-				<p class="lede">${copy.lede}</p>
-				<p class="hero__availability">${text(site.availability)}</p>
-				<div class="actions">
-					<a class="btn btn--primary mono" href="mailto:${site.contact.email}">Email me</a>
-					<a class="btn mono" href="/resume/">Resume</a>
-				</div>
+		<h1 class="hero__name display" id="name">${site.name}</h1>
+		<div class="hero__portrait">
+			${picture(ctx.content, copy.headshot.image, { alt: copy.headshot.alt, sizes: "(min-width: 960px) 400px, 46vw", priority: true, className: "portrait" })}
+		</div>
+		<div class="hero__text">
+			<p class="hero__bio">${copy.bio}</p>
+			<p class="hero__availability">${text(site.availability)}</p>
+			<div class="actions">
+				<a class="btn btn--primary mono" href="mailto:${site.contact.email}">Email me</a>
+				<a class="btn mono" href="/resume/">Resume</a>
 			</div>
-			<dl class="hero__spec mono">
-				<div><dt>Program</dt><dd>BS Mechanical Engineering</dd></div>
-				<div><dt>Minor</dt><dd>Robotics</dd></div>
-				<div><dt>School</dt><dd>${site.schoolShort}</dd></div>
-				<div><dt>Graduating</dt><dd>${resume.education[0]?.dates.replace(/^Expected\s+/i, "") ?? ""}</dd></div>
-			</dl>
 		</div>
-	</section>
-
-	<section class="band" aria-labelledby="headed">
-		${sectionHead("headed", copy.headed.title, copy.headed.intro, "A")}
-		<ol class="heading-list" role="list">
-			${site.interests.map((interest, i) => html`<li class="heading-list__item"><span class="heading-list__no mono" aria-hidden="true">${pad(i + 1)}</span><span class="heading-list__text">${interest}</span></li>`)}
-		</ol>
-	</section>
-
-	<section class="band" aria-labelledby="measured">
-		${sectionHead("measured", copy.measured.title, copy.measured.intro, "B")}
-		${metricList(featured, "dims--featured")}
-	</section>
-
-	<section class="band" aria-labelledby="work">
-		${sectionHead("work", copy.work.title, copy.work.intro, "C")}
-		${register(ctx.content, projects, { showCategory: true, headingLevel: 3 })}
-		<p class="band__more"><a class="textlink mono" href="/projects/">All projects</a></p>
-	</section>
-
-	<section class="band" aria-labelledby="education">
-		${sectionHead("education", copy.education.title, undefined, "D")}
-		<div class="band__body">
-			${resume.education.map(
-				(e) => html`<div class="edu">
-					<p class="edu__school">${e.school}</p>
-					<p>${e.degree}</p>
-					<p class="mono edu__meta">${e.dates} · GPA ${e.gpa}</p>
-				</div>`,
-			)}
-		</div>
+		<dl class="hero__spec mono">
+			<div><dt>Program</dt><dd>BS Mechanical Engineering</dd></div>
+			<div><dt>Minor</dt><dd>Robotics</dd></div>
+			<div><dt>School</dt><dd>${site.schoolShort}</dd></div>
+			<div><dt>Graduating</dt><dd>${resume.education[0]?.dates.replace(/^Expected\s+/i, "") ?? ""}</dd></div>
+		</dl>
 	</section>
 
 	<section class="band band--contact" aria-labelledby="get-in-touch">
-		${sectionHead("get-in-touch", copy.contact.title, copy.contact.text, "E")}
+		${sectionHead("get-in-touch", copy.contact.title, copy.contact.text)}
 		<div class="band__body">${contactLinks(ctx, true)}</div>
 	</section>`;
 
 	return {
 		route: "/",
 		file: fileFor("/"),
-		og: { id: "home", sheet: "01", title: site.name },
+		og: { id: "home", label: "Home", title: site.name },
 		html: layout(ctx, {
 			seo: { route: "/", title: copy.seo.title, description: copy.seo.description, og: "home", type: "profile", jsonLd: [profilePage(ctx)] },
-			sheet: { no: "01", label: copy.sheet, section: "/" },
+			section: "/",
 			body,
 			bodyClass: "page-home",
 		}),
@@ -176,16 +138,16 @@ export function resumePage(ctx: RenderContext): PageOut {
 	return {
 		route: "/resume/",
 		file: fileFor("/resume/"),
-		og: { id: "resume", sheet: "02", title: copy.title },
+		og: { id: "resume", label: "Resume", title: copy.title },
 		html: layout(ctx, {
 			seo: {
 				route: "/resume/",
 				title: copy.seo.title,
 				description: copy.seo.description,
 				og: "resume",
-				jsonLd: [breadcrumbs(ctx, [{ name: "Index", route: "/" }, { name: copy.title, route: "/resume/" }])],
+				jsonLd: [breadcrumbs(ctx, [{ name: "Home", route: "/" }, { name: copy.title, route: "/resume/" }])],
 			},
-			sheet: { no: "02", label: copy.sheet, section: "/resume/" },
+			section: "/resume/",
 			body,
 		}),
 	};
@@ -203,24 +165,24 @@ export function projectsPage(ctx: RenderContext): PageOut {
 		<p class="page-head__intro">${copy.intro}</p>
 	</header>
 	${groups.map(
-		(g, i) => html`<section class="band" aria-labelledby="group-${g.key}">
-			${sectionHead(`group-${g.key}`, g.label, undefined, String.fromCharCode(65 + i))}
-			${register(ctx.content, g.items, { showCategory: false, headingLevel: 3 })}
+		(g) => html`<section class="band" aria-labelledby="group-${g.key}">
+			${sectionHead(`group-${g.key}`, g.label)}
+			${register(g.items)}
 		</section>`,
 	)}`;
 	return {
 		route: "/projects/",
 		file: fileFor("/projects/"),
-		og: { id: "projects", sheet: "03", title: copy.title },
+		og: { id: "projects", label: "Projects", title: copy.title },
 		html: layout(ctx, {
 			seo: {
 				route: "/projects/",
 				title: copy.seo.title,
 				description: copy.seo.description,
 				og: "projects",
-				jsonLd: [breadcrumbs(ctx, [{ name: "Index", route: "/" }, { name: copy.title, route: "/projects/" }])],
+				jsonLd: [breadcrumbs(ctx, [{ name: "Home", route: "/" }, { name: copy.title, route: "/projects/" }])],
 			},
-			sheet: { no: "03", label: copy.sheet, section: "/projects/" },
+			section: "/projects/",
 			body,
 		}),
 	};
@@ -229,7 +191,6 @@ export function projectsPage(ctx: RenderContext): PageOut {
 export function projectPage(ctx: RenderContext, project: Project): PageOut {
 	const { site, projects } = ctx.content;
 	const index = projects.indexOf(project);
-	const sheet = `03.${index + 1}`;
 	const route = `/projects/${project.slug}/`;
 	const prev = projects[index - 1];
 	const next = projects[index + 1];
@@ -242,12 +203,12 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 			<p class="crumb mono"><a href="/projects/">Projects</a> <span aria-hidden="true">/</span> ${site.categories[project.category]}</p>
 			<h1 class="project__title display">${project.title}</h1>
 			<p class="lede">${project.summary}</p>
-			${titleBlock(ctx.content, project, sheet)}
+			${titleBlock(ctx.content, project)}
 		</header>
 		${project.metrics.length
 			? html`<section class="band band--tight" aria-labelledby="results">
 					<h2 class="visually-hidden" id="results">Results</h2>
-					${metricList(project.metrics.map((metric) => ({ metric })), project.metrics.length > 2 ? "dims--quad" : "")}
+					${metricList(project.metrics, project.metrics.length > 2 ? "dims--quad" : "")}
 				</section>`
 			: ""}
 		${sections.map(
@@ -256,20 +217,20 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 				<div class="band__body prose">${s.body}</div>
 			</section>`,
 		)}
-		<section class="band band--figures" aria-labelledby="figures">
-			${sectionHead("figures", "Figures")}
+		<section class="band band--figures" aria-labelledby="gallery">
+			${sectionHead("gallery", "Gallery")}
 			${figures(ctx.content, project)}
 		</section>
 		<nav class="pager" aria-label="More projects">
-			${prev ? html`<a class="pager__link pager__link--prev" href="/projects/${prev.slug}/"><span class="mono">Previous · 03.${index}</span><span>${prev.register}</span></a>` : html`<span></span>`}
-			${next ? html`<a class="pager__link pager__link--next" href="/projects/${next.slug}/"><span class="mono">Next · 03.${index + 2}</span><span>${next.register}</span></a>` : html`<a class="pager__link pager__link--next" href="/contact/"><span class="mono">Next · 04</span><span>Get in touch</span></a>`}
+			${prev ? html`<a class="pager__link pager__link--prev" href="/projects/${prev.slug}/"><span class="mono">Previous project</span><span>${prev.register}</span></a>` : html`<span></span>`}
+			${next ? html`<a class="pager__link pager__link--next" href="/projects/${next.slug}/"><span class="mono">Next project</span><span>${next.register}</span></a>` : html`<a class="pager__link pager__link--next" href="/contact/"><span class="mono">Next</span><span>Get in touch</span></a>`}
 		</nav>
 	</article>`;
 
 	return {
 		route,
 		file: fileFor(route),
-		og: { id: `project-${project.slug}`, sheet, title: project.title, metric: featured },
+		og: { id: `project-${project.slug}`, label: "Projects", title: project.title, metric: featured },
 		html: layout(ctx, {
 			seo: {
 				route,
@@ -289,13 +250,13 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 						keywords: project.tools.join(", "),
 					},
 					breadcrumbs(ctx, [
-						{ name: "Index", route: "/" },
+						{ name: "Home", route: "/" },
 						{ name: "Projects", route: "/projects/" },
 						{ name: project.register, route },
 					]),
 				],
 			},
-			sheet: { no: sheet, label: `Projects / ${project.register}`, section: "/projects/" },
+			section: "/projects/",
 			body,
 		}),
 	};
@@ -325,16 +286,16 @@ export function contactPage(ctx: RenderContext): PageOut {
 	return {
 		route: "/contact/",
 		file: fileFor("/contact/"),
-		og: { id: "contact", sheet: "04", title: copy.title },
+		og: { id: "contact", label: "Contact", title: copy.title },
 		html: layout(ctx, {
 			seo: {
 				route: "/contact/",
 				title: copy.seo.title,
 				description: copy.seo.description,
 				og: "contact",
-				jsonLd: [breadcrumbs(ctx, [{ name: "Index", route: "/" }, { name: copy.title, route: "/contact/" }])],
+				jsonLd: [breadcrumbs(ctx, [{ name: "Home", route: "/" }, { name: copy.title, route: "/contact/" }])],
 			},
-			sheet: { no: "04", label: copy.sheet, section: "/contact/" },
+			section: "/contact/",
 			body,
 		}),
 	};
@@ -348,17 +309,16 @@ export function notFoundPage(ctx: RenderContext): PageOut {
 		<h1 class="page-head__title display">${copy.title}</h1>
 		<p class="page-head__intro">${copy.text}</p>
 		<div class="actions">
-			<a class="btn btn--primary mono" href="/">Go to the index</a>
+			<a class="btn btn--primary mono" href="/">Go to the home page</a>
 			<a class="btn mono" href="/projects/">See projects</a>
 		</div>
 	</header>`;
 	return {
 		route: "/404",
 		file: "404.html",
-		og: { id: "home", sheet: "00", title: ctx.content.site.name },
+		og: { id: "home", label: "Home", title: ctx.content.site.name },
 		html: layout(ctx, {
 			seo: { route: "/404", title: copy.seo.title, description: copy.seo.description, og: "home" },
-			sheet: { no: "00", label: copy.sheet },
 			body,
 		}),
 	};

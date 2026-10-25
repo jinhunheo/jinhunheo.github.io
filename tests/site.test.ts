@@ -35,7 +35,7 @@ describe("content", () => {
 		for (const p of content.projects) assert.ok(content.site.categories[p.category], p.slug);
 	});
 
-	test("every project has a featured metric for the home page", () => {
+	test("every project has a featured metric for the projects list", () => {
 		for (const p of content.projects) assert.ok(p.metrics.some((m) => m.featured), p.slug);
 	});
 
