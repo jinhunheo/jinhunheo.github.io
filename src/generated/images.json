@@ -1,0 +1,542 @@
+{
+	"headshot": {
+		"width": 1086,
+		"height": 1448,
+		"source": "646802215642aa22",
+		"avif": [
+			{
+				"width": 400,
+				"file": "headshot-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "headshot-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "headshot-800.avif"
+			},
+			{
+				"width": 1086,
+				"file": "headshot-1086.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "headshot-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "headshot-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "headshot-800.webp"
+			},
+			{
+				"width": 1086,
+				"file": "headshot-1086.webp"
+			}
+		]
+	},
+	"rvl-cad-enclosure-open": {
+		"width": 1040,
+		"height": 697,
+		"source": "04131398853e1d1a",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-enclosure-open-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-enclosure-open-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-enclosure-open-800.avif"
+			},
+			{
+				"width": 1040,
+				"file": "rvl-cad-enclosure-open-1040.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-enclosure-open-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-enclosure-open-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-enclosure-open-800.webp"
+			},
+			{
+				"width": 1040,
+				"file": "rvl-cad-enclosure-open-1040.webp"
+			}
+		]
+	},
+	"rvl-cad-enclosure": {
+		"width": 910,
+		"height": 732,
+		"source": "cb4c94282d77e511",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-enclosure-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-enclosure-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-enclosure-800.avif"
+			},
+			{
+				"width": 910,
+				"file": "rvl-cad-enclosure-910.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-enclosure-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-enclosure-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-enclosure-800.webp"
+			},
+			{
+				"width": 910,
+				"file": "rvl-cad-enclosure-910.webp"
+			}
+		]
+	},
+	"rvl-cad-fan-grill": {
+		"width": 866,
+		"height": 472,
+		"source": "8c5bc5960a8a8c69",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-fan-grill-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-fan-grill-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-fan-grill-800.avif"
+			},
+			{
+				"width": 866,
+				"file": "rvl-cad-fan-grill-866.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-fan-grill-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-fan-grill-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-fan-grill-800.webp"
+			},
+			{
+				"width": 866,
+				"file": "rvl-cad-fan-grill-866.webp"
+			}
+		]
+	},
+	"rvl-cad-sensor-mount": {
+		"width": 1092,
+		"height": 737,
+		"source": "a740da0b4ca386c5",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-sensor-mount-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-sensor-mount-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-sensor-mount-800.avif"
+			},
+			{
+				"width": 1092,
+				"file": "rvl-cad-sensor-mount-1092.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-sensor-mount-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-sensor-mount-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-sensor-mount-800.webp"
+			},
+			{
+				"width": 1092,
+				"file": "rvl-cad-sensor-mount-1092.webp"
+			}
+		]
+	},
+	"rvl-cad-snap-clip": {
+		"width": 915,
+		"height": 726,
+		"source": "db356c000f048f96",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-snap-clip-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-snap-clip-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-snap-clip-800.avif"
+			},
+			{
+				"width": 915,
+				"file": "rvl-cad-snap-clip-915.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-snap-clip-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-snap-clip-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-snap-clip-800.webp"
+			},
+			{
+				"width": 915,
+				"file": "rvl-cad-snap-clip-915.webp"
+			}
+		]
+	},
+	"rvl-calibration-rig": {
+		"width": 2400,
+		"height": 1800,
+		"source": "49221279fd26595c",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-calibration-rig-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-calibration-rig-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-calibration-rig-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-calibration-rig-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-calibration-rig-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-calibration-rig-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-calibration-rig-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-calibration-rig-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-calibration-rig-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-calibration-rig-1600.webp"
+			}
+		]
+	},
+	"rvl-enclosure-angle": {
+		"width": 1800,
+		"height": 2400,
+		"source": "6ecf742cdd4da20f",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-enclosure-angle-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-enclosure-angle-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-enclosure-angle-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-enclosure-angle-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-enclosure-angle-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-enclosure-angle-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-enclosure-angle-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-enclosure-angle-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-enclosure-angle-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-enclosure-angle-1600.webp"
+			}
+		]
+	},
+	"rvl-enclosure-front": {
+		"width": 1800,
+		"height": 2400,
+		"source": "b6539ad216d09170",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-enclosure-front-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-enclosure-front-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-enclosure-front-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-enclosure-front-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-enclosure-front-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-enclosure-front-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-enclosure-front-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-enclosure-front-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-enclosure-front-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-enclosure-front-1600.webp"
+			}
+		]
+	},
+	"rvl-husky-deck": {
+		"width": 1800,
+		"height": 2400,
+		"source": "b0b204f6cf8515c4",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-husky-deck-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-husky-deck-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-husky-deck-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-husky-deck-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-husky-deck-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-husky-deck-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-husky-deck-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-husky-deck-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-husky-deck-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-husky-deck-1600.webp"
+			}
+		]
+	},
+	"rvl-husky-field": {
+		"width": 1800,
+		"height": 2400,
+		"source": "133d50aeab4312b7",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-husky-field-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-husky-field-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-husky-field-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-husky-field-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-husky-field-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-husky-field-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-husky-field-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-husky-field-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-husky-field-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-husky-field-1600.webp"
+			}
+		]
+	},
+	"rvl-mount-and-clip": {
+		"width": 1800,
+		"height": 2400,
+		"source": "bb4d9173eaed5e54",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-mount-and-clip-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-mount-and-clip-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-mount-and-clip-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-mount-and-clip-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-mount-and-clip-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-mount-and-clip-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-mount-and-clip-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-mount-and-clip-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-mount-and-clip-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-mount-and-clip-1600.webp"
+			}
+		]
+	}
+}

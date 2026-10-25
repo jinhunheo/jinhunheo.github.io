@@ -1,0 +1,50 @@
+# Site-wide facts. Everything a visitor reads lives in content/;
+# the templates in src/site/ only lay it out.
+#
+# Anything starting with "TODO:" shows as a dashed box on staging,
+# and a production build refuses to run until it is filled in.
+
+name: Jinhun Heo
+descriptor: Mechanical engineering + robotics
+school: The University of Texas at Austin
+schoolShort: UT Austin
+location:
+  label: Austin, Texas
+  locality: Austin
+  region: TX
+  country: US
+
+urls:
+  # Used for canonical links, the sitemap and social preview images.
+  production: "TODO: production domain, for example https://jinhunheo.com"
+  staging: https://jinhun-heo-portfolio-staging.SUBDOMAIN.workers.dev
+
+contact:
+  email: jinsil.h2004@gmail.com
+  phone: (682) 367-3127
+  phoneHref: "+16823673127"
+  linkedin: https://www.linkedin.com/in/jinhun-heo
+  linkedinLabel: linkedin.com/in/jinhun-heo
+
+resumePdf:
+  file: Jinhun-Heo-Resume.pdf
+  label: Download resume
+
+availability: "TODO: what you are looking for and when, for example: looking for a Summer 2027 internship in robot hardware or controls"
+
+interests:
+  - Nuclear engineering and robotics
+  - Robot hardware
+  - Medical devices
+  - Optics
+
+categories:
+  internship: Internship
+  research: Research
+  team: Student team
+
+nav:
+  - { label: Index, href: / }
+  - { label: Resume, href: /resume/ }
+  - { label: Projects, href: /projects/ }
+  - { label: Contact, href: /contact/ }

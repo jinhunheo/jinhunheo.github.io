@@ -1,0 +1,57 @@
+# The resume, as data. Keep it in step with content/files/Jinhun-Heo-Resume.pdf.
+# `project` links an entry to its write-up in content/projects/<project>.md.
+
+education:
+  - school: The University of Texas at Austin
+    degree: BS in Mechanical Engineering; Minor in Robotics
+    dates: Expected May 2029
+    gpa: 3.79/4.00
+
+skills:
+  - group: Design & manufacturing
+    items: [Onshape, SolidWorks, Fusion 360, FDM 3D printing, Machining]
+  - group: Programming
+    items: [Python, C++, Arduino, Linux, ROS, Git]
+
+experience:
+  - title: Undergraduate Research Assistant
+    org: Robotic Vision Lab, The University of Texas at Arlington
+    dates: June 2026 – Aug 2026
+    project: robotic-vision-lab
+    bullets:
+      - Engineered mounting solutions with sliding alignment rails and integrated Velcro-strap slots for sensors and communication hardware, minimizing fasteners to achieve a 67% reduction in hardware assembly time
+      - Designed custom snap-fit clips to securely attach electronics to metal rails on the Husky UGV for high-vibration tasks while enabling easy detachment for rapid troubleshooting, reducing unplanned downtime
+      - Modeled a microcontroller enclosure with side-clamping snap-fits, creating overhead protection for GPIO pin headers and PCB signal traces while leaving enough openings for easy pin reconfiguration and monitoring of status LEDs
+      - Reduced hardware failure risks by integrating custom fan grills to block debris entering internal UGV wiring, along with custom cable-management parts to organize and protect exposed stereo camera cables during transport
+      - Constructed an indoor sensor testing/calibration rig enabling rapid laboratory verification without full UGV assembly
+
+projects:
+  - title: Reaction Wheel
+    org: Freshman Research Initiative (Space & Robotics Stream)
+    dates: Jan 2026 – May 2026
+    project: reaction-wheel
+    bullets:
+      - Implemented and tuned a closed-loop PID control system bringing a hand-spun platform to a stop within 0.5s
+      - Maintained 89% continuous tracking on colored targets experiencing violent shaking by developing a dual-loop PID control architecture integrated with real-time OpenCV tracking
+      - Generated a web-based monitoring interface using Flask to stream live camera footage, creating graphical overlays such as a crosshair and a bounding box to visually verify real-time target tracking performance
+      - Designed a weight-optimized motor housing, reducing battery consumption by 11% and tipping by 29%
+      - Achieved bidirectional motor control and PWM duty cycle modulation by introducing an H-bridge
+      - Mitigated thermal risks and optimized power efficiency by sizing wire gauges and calculating peak current loads
+  - title: Human Re-Identification
+    org: Learning Agents Research Group
+    dates: Dec 2025 – May 2026
+    project: human-re-identification
+    bullets:
+      - Engineered a real-time human re-identification system on the Booster T1, integrating two CNN deep learning models and a tracking algorithm on ROS2 for the RoboCup@home competition
+      - Developed ID maintaining logic utilizing spatial tracking and ID lifespan, resulting in 80% reduction in ID switching
+      - Introduced face recognition to augment profiles, enabling ID recovery in lighting variations and clothing changes
+      - Optimized performance by leveraging CUDA for PyTorch-based algorithms achieving stable 22 fps processing
+      - Created a real-time monitoring interface, broadcasting bounding box data for validation and debugging
+  - title: Baja SAE Pedalbox
+    org: Longhorn Baja Racing
+    dates: Sept 2025 – Apr 2026
+    project: baja-pedal-box
+    bullets:
+      - Spearheaded the design of the throttle pedal assembly using SolidWorks, integrating a custom throttle cable linkage to navigate a rear-engine architecture while preventing mechanical interference with mid-chassis components
+      - Optimized pedal arm length to 9in, a 25% reduction from industry standards, meeting competition regulations
+      - Resolved lack of pedal return by introducing spring mechanism, ensuring reliable return and driver feedback

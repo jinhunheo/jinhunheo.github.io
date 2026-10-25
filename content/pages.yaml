@@ -1,0 +1,76 @@
+# Copy for each page. Project write-ups live in content/projects/.
+
+home:
+  seo:
+    title: Jinhun Heo · Mechanical engineering and robotics
+    description: >-
+      Mechanical engineering student at UT Austin, minoring in robotics. I design robot
+      hardware (mounts, enclosures, linkages) and the control and vision code that runs on it.
+  sheet: Index
+  lede: >-
+    Second-year mechanical engineering student at UT Austin, minoring in robotics.
+    I design the parts that hold robots together, and write the control and vision
+    code that makes them useful.
+  headshot:
+    image: headshot
+    alt: Jinhun Heo in a dark suit and tie against a charcoal backdrop.
+    caption: Jinhun Heo, Austin, Texas
+  headed:
+    title: Where I want to work
+    intro: The fields I'm building toward.
+  measured:
+    title: Measured
+    intro: Results from the work, each one linked to the project it came from.
+  work:
+    title: Work
+    intro: Internship, research and student-team projects, newest first.
+  education:
+    title: Education
+  contact:
+    title: Get in touch
+    text: Email is the fastest way to reach me. I'm also on my mobile and LinkedIn.
+
+resume:
+  seo:
+    title: Resume · Jinhun Heo
+    description: >-
+      Resume of Jinhun Heo: BS Mechanical Engineering with a robotics minor at UT Austin
+      (expected May 2029), with research in robot hardware, controls and computer vision.
+  sheet: Resume
+  title: Resume
+  intro: >-
+    The same resume as the PDF, readable on any screen. Each project links to its
+    full write-up.
+
+projects:
+  seo:
+    title: Projects · Jinhun Heo
+    description: >-
+      Internship, research and student-team projects by Jinhun Heo: hardware for a field
+      robot, a reaction wheel platform, human re-identification on a humanoid robot and a
+      Baja SAE throttle pedal.
+  sheet: Projects
+  title: Projects
+  intro: >-
+    Internship, research and student-team work, newest first. Each sheet covers the
+    problem, what I built and how it measured up.
+
+contact:
+  seo:
+    title: Contact · Jinhun Heo
+    description: >-
+      Email, phone and LinkedIn for Jinhun Heo, mechanical engineering and robotics
+      student at UT Austin.
+  sheet: Contact
+  title: Contact
+  intro: >-
+    Email is the fastest way to reach me. You can also call my mobile or message me
+    on LinkedIn.
+
+notFound:
+  seo:
+    title: Page not found · Jinhun Heo
+    description: There is no page at this address on Jinhun Heo's portfolio. Try the index or the projects list.
+  sheet: Not found
+  title: Sheet not found
+  text: There's no page at this address. It may have moved, or the link has a typo.
