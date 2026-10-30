@@ -20,7 +20,6 @@ metrics:
   - value: "9"
     unit: in
     label: pedal arm length
-figuresTodo: "TODO: add CAD renders or photos of the pedal assembly"
 figures: []
 ---
 

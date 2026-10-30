@@ -1,5 +1,6 @@
 import type { Content, SiteMode } from "./content.ts";
 import { html, raw, type Raw } from "./html.ts";
+import { THEME_SCRIPT_HASH } from "./theme.ts";
 
 export interface RenderContext {
 	content: Content;
@@ -113,7 +114,7 @@ export function headers(ctx: RenderContext): string {
 		"img-src 'self' data:",
 		"font-src 'self'",
 		"style-src 'self'",
-		"script-src 'self'",
+		`script-src 'self' '${THEME_SCRIPT_HASH}'`,
 		"connect-src 'self'",
 		"object-src 'none'",
 		"base-uri 'self'",

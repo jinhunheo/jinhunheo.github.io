@@ -19,9 +19,8 @@ export interface Site {
 	schoolShort: string;
 	location: { label: string; locality: string; region: string; country: string };
 	urls: { production: string; staging: string };
-	contact: { email: string; phone: string; phoneHref: string; linkedin: string; linkedinLabel: string };
+	contact: { email: string; phone: string; phoneHref: string; linkedin: string };
 	resumePdf: { file: string; label: string };
-	availability: string;
 	interests: string[];
 	categories: Record<string, string>;
 	nav: { label: string; href: string }[];
@@ -36,13 +35,13 @@ interface PageCopy {
 export interface Pages {
 	home: {
 		seo: SeoCopy;
+		greeting: string;
 		bio: string;
 		headshot: { image: string; alt: string };
-		contact: { title: string; text: string };
+		projects: { title: string; more: string };
 	};
 	resume: PageCopy;
 	projects: PageCopy;
-	contact: PageCopy;
 	notFound: { seo: SeoCopy; title: string; text: string };
 }
 
@@ -89,9 +88,9 @@ export interface Project {
 	description: string;
 	summary: string;
 	metrics: Metric[];
+	/** Image for the home page card (from content/media). Leave out to keep an empty space. */
 	cover?: string;
 	figures: Figure[];
-	figuresTodo?: string;
 	/** Markdown body. */
 	body: string;
 }

@@ -18,8 +18,8 @@ Workers Free) with the `cf` CLI. Design direction: [DESIGN.md](DESIGN.md).
 | `src/generated/` | Image sizes and manifests from `npm run images` (committed) |
 | `public/` | Favicons and social preview images, served as-is |
 
-Anything in `content/` that starts with `TODO:` shows as a dashed box on staging, and
-`npm run build` (production) refuses to run until it's filled in.
+Anything in `content/` that starts with `TODO:` blocks `npm run build` (production) until
+it's filled in. Today that is only the production domain in `content/site.yaml`.
 
 ## Common tasks
 
@@ -35,7 +35,9 @@ npm run import-media -- "C:/path/to/IMG_1234.jpeg" project-part-name.jpg
 npm run images
 ```
 
-Then reference it as a figure in the project's Markdown frontmatter (`image: project-part-name`).
+Then reference it in the project's Markdown frontmatter: as a gallery figure
+(`image: project-part-name`), and/or as the home page card image (`cover: project-part-name`).
+Projects without a `cover` show an empty rounded space on the home page.
 Run `npm run images` again after renaming a page title, so its social preview matches.
 
 ## Checks and deploys

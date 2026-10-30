@@ -78,23 +78,56 @@ function setupViewer(): void {
 	});
 }
 
-// "Copy" next to the email address, where the Clipboard API is available.
-function setupCopy(): void {
-	if (!navigator.clipboard) return;
-	for (const button of document.querySelectorAll<HTMLButtonElement>("button[data-copy]")) {
-		button.hidden = false;
-		button.setAttribute("aria-label", `Copy ${button.dataset.copy ?? ""}`);
-		button.addEventListener("click", async () => {
-			try {
-				await navigator.clipboard.writeText(button.dataset.copy ?? "");
-				button.textContent = "Copied";
-			} catch {
-				button.textContent = "Press Ctrl+C";
-			}
-			window.setTimeout(() => (button.textContent = "Copy"), 2000);
+// Light/dark toggle in the header. The choice is remembered in this browser;
+// the inline script in <head> applies it before first paint.
+function setupTheme(): void {
+	const button = document.querySelector<HTMLButtonElement>(".theme-toggle");
+	if (!button) return;
+	const root = document.documentElement;
+	const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+	const apply = (dark: boolean): void => {
+		if (dark) root.dataset.theme = "dark";
+		else delete root.dataset.theme;
+		button.setAttribute("aria-pressed", String(dark));
+		themeColor?.setAttribute("content", dark ? "#0f0f10" : "#ffffff");
+	};
+	apply(root.dataset.theme === "dark");
+	button.hidden = false;
+	button.addEventListener("click", () => {
+		const dark = root.dataset.theme !== "dark";
+		apply(dark);
+		try {
+			localStorage.setItem("theme", dark ? "dark" : "light");
+		} catch {
+			// Storage blocked (private mode): the toggle still works for this page.
+		}
+	});
+}
+
+// Footer mail icon: copies the address, then the mailto link opens the mail app.
+function setupEmailCopy(): void {
+	const toast = document.querySelector<HTMLElement>(".toast");
+	let timer = 0;
+	for (const link of document.querySelectorAll<HTMLAnchorElement>("a[data-copy-email]")) {
+		link.addEventListener("click", () => {
+			const email = link.dataset.copyEmail ?? "";
+			navigator.clipboard?.writeText(email).then(
+				() => {
+					if (!toast) return;
+					toast.textContent = `Copied ${email}`;
+					toast.classList.add("is-visible");
+					window.clearTimeout(timer);
+					timer = window.setTimeout(() => {
+						toast.classList.remove("is-visible");
+						toast.textContent = "";
+					}, 2500);
+				},
+				() => {},
+			);
 		});
 	}
 }
 
+setupTheme();
 setupViewer();
-setupCopy();
+setupEmailCopy();

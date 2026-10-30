@@ -26,7 +26,6 @@ metrics:
   - value: "29"
     unit: "%"
     label: less tipping
-figuresTodo: "TODO: add photos, CAD renders or a short video of the platform"
 figures: []
 ---
 

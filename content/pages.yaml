@@ -6,14 +6,15 @@ home:
     description: >-
       Mechanical engineering student at UT Austin, minoring in robotics. I design robot
       hardware (mounts, enclosures, linkages) and the control and vision code that runs on it.
+  greeting: Hey, I'm Jinhun.
   bio: >-
     I am a second year mechanical engineering student with a minor in robotics at the University of Texas at Austin. I have hands-on experience in robotics and 3D design from university research lab and various technical student organization involvement. I am also a great team collaborator and love sharing my ideas with others. I am passionate about multiple things and currently I am very eager to work in the intersection of nuclear engineering and robotics, robot hardware advancement as well as medical devices and optics development.
   headshot:
     image: headshot-round
     alt: Jinhun Heo in a dark suit and tie against a charcoal backdrop.
-  contact:
-    title: Get in touch
-    text: Email is the fastest way to reach me. I'm also on my mobile and LinkedIn.
+  projects:
+    title: Projects
+    more: Learn more
 
 resume:
   seo:
@@ -37,17 +38,6 @@ projects:
   intro: >-
     Internship, research and student-team work, newest first. Each project covers the
     problem, what I built and how it measured up.
-
-contact:
-  seo:
-    title: Contact · Jinhun Heo
-    description: >-
-      Email, phone and LinkedIn for Jinhun Heo, mechanical engineering and robotics
-      student at UT Austin.
-  title: Contact
-  intro: >-
-    Email is the fastest way to reach me. You can also call my mobile or message me
-    on LinkedIn.
 
 notFound:
   seo:

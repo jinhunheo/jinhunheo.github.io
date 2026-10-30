@@ -68,12 +68,12 @@ export function register(projects: Project[]): Raw {
 			return html`<li class="register__row">
 				<h3 class="register__title"><a class="register__link" href="/projects/${p.slug}/">${p.register}</a></h3>
 				<p class="register__summary">${p.org}</p>
-				<dl class="register__meta mono">
+				<dl class="register__meta label">
 					<div><dt>Role</dt><dd>${p.role}</dd></div>
 					<div><dt>Dates</dt><dd>${p.dates}</dd></div>
 				</dl>
 				${featured
-					? html`<p class="register__figure"><span class="register__value">${featured.value}<span class="register__unit">${featured.unit}</span></span> <span class="register__label mono">${featured.label}</span></p>`
+					? html`<p class="register__figure"><span class="register__value">${featured.value}<span class="register__unit">${featured.unit}</span></span> <span class="register__label label">${featured.label}</span></p>`
 					: ""}
 			</li>`;
 		})}
@@ -90,7 +90,7 @@ export function titleBlock(content: Content, p: Project): Raw {
 		["Tools", p.tools.join(" · ")],
 	];
 	return html`<dl class="titleblock">
-		${rows.map(([k, v]) => html`<div class="titleblock__cell"><dt class="mono">${k}</dt><dd>${v}</dd></div>`)}
+		${rows.map(([k, v]) => html`<div class="titleblock__cell"><dt class="label">${k}</dt><dd>${v}</dd></div>`)}
 	</dl>`;
 }
 
@@ -123,10 +123,27 @@ export function figureSpans(content: Content, figures: Figure[]): Span[] {
 	return spans;
 }
 
+/**
+ * Home page project row: image (or an empty space until one is added) beside
+ * the title, summary and a "Learn more" link.
+ */
+export function projectCard(content: Content, p: Project, more: string): Raw {
+	const href = `/projects/${p.slug}/`;
+	const media = p.cover
+		? picture(content, p.cover, { alt: "", sizes: "(min-width: 960px) 560px, 100vw", className: "card__picture" })
+		: html`<span class="card__placeholder"></span>`;
+	return html`<li class="card">
+		<a class="card__media" href="${href}" tabindex="-1" aria-hidden="true">${media}</a>
+		<div class="card__body">
+			<p class="card__meta">${content.site.categories[p.category]} · ${p.dates}</p>
+			<h3 class="card__title">${p.register}</h3>
+			<p class="card__text">${p.summary}</p>
+			<a class="btn btn--primary" href="${href}">${more}<span class="visually-hidden"> about ${p.register}</span></a>
+		</div>
+	</li>`;
+}
+
 export function figures(content: Content, p: Project): Raw {
-	if (!p.figures.length) {
-		return p.figuresTodo ? html`<p class="figures__todo">${text(p.figuresTodo)}</p>` : html``;
-	}
 	const spans = figureSpans(content, p.figures);
 	return html`<div class="figures" data-viewer>
 		${p.figures.map((f, i) => {

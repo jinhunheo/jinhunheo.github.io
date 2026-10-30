@@ -20,7 +20,6 @@ metrics:
   - value: "22"
     unit: fps
     label: stable processing rate
-figuresTodo: "TODO: add photos of the robot, or screenshots of the monitoring interface"
 figures: []
 ---
 

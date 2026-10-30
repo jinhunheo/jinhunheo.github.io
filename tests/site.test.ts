@@ -7,6 +7,7 @@ import { buildSite, renderPages } from "../src/site/build.ts";
 import { figureSpans } from "../src/site/components.ts";
 import { findTodos, loadContent, type Content } from "../src/site/content.ts";
 import type { RenderContext } from "../src/site/seo.ts";
+import { THEME_SCRIPT, THEME_SCRIPT_HASH } from "../src/site/theme.ts";
 
 const root = path.resolve(import.meta.dirname, "..");
 const content = loadContent(root);
@@ -21,8 +22,6 @@ const attr = (tag: string, name: string): string | undefined => new RegExp(`\\s$
 function launchReady(): Content {
 	const c = structuredClone(content);
 	c.site.urls.production = "https://example.com";
-	c.site.availability = "Looking for a Summer 2027 internship.";
-	for (const p of c.projects) delete p.figuresTodo;
 	return c;
 }
 
@@ -136,8 +135,17 @@ describe("rendered pages", () => {
 			});
 
 			test("every image has alt text and intrinsic size", () => {
-				for (const [tag] of all(html, /<img\s[^>]*>/)) {
+				// Home card images sit in an aria-hidden link next to the visible
+				// title, so they are decorative: empty alt is correct there.
+				const decorative = all(html, /<a class="card__media"[^>]*aria-hidden="true">[\s\S]*?<\/a>/).map((m) => m[0]);
+				for (const block of decorative) {
+					for (const [tag] of all(block, /<img\s[^>]*>/)) assert.equal(attr(tag, "alt"), "", tag.slice(0, 80));
+				}
+				const content = decorative.reduce((h, block) => h.replace(block, ""), html);
+				for (const [tag] of all(content, /<img\s[^>]*>/)) {
 					assert.ok(attr(tag, "alt")?.trim(), `missing alt: ${tag.slice(0, 80)}`);
+				}
+				for (const [tag] of all(html, /<img\s[^>]*>/)) {
 					assert.ok(Number(attr(tag, "width")) > 0 && Number(attr(tag, "height")) > 0, `missing size: ${tag.slice(0, 80)}`);
 				}
 			});
@@ -155,7 +163,15 @@ describe("rendered pages", () => {
 
 			test("no inline styles or scripts that the CSP would block", () => {
 				assert.doesNotMatch(html, /\sstyle="/);
-				assert.doesNotMatch(html, /<script(?![^>]*(type="module" src=|type="application\/ld\+json"))/);
+				const inline = all(html, /<script(?![^>]*(type="module" src=|type="application\/ld\+json"))[^>]*>([\s\S]*?)<\/script>/);
+				assert.deepEqual(inline.map((m) => m[2]), [THEME_SCRIPT], "only the theme script may be inline");
+			});
+
+			test("has the dark-mode toggle and footer contact icons", () => {
+				assert.match(html, /<button class="theme-toggle"[^>]*aria-pressed="false"/);
+				assert.match(html, /href="https:\/\/www\.linkedin\.com\/in\/[^"]+"[^>]*aria-label="[^"]+LinkedIn"/);
+				assert.match(html, /href="mailto:[^"]+" data-copy-email="[^"]+"/);
+				assert.doesNotMatch(html, /class="todo"/);
 			});
 		});
 	}
@@ -166,6 +182,7 @@ describe("build modes", () => {
 		const site = buildSite({ root, mode: "staging", date });
 		const headers = site.files.find((f) => f.fileName === "_headers")?.source as string;
 		assert.match(headers, /X-Robots-Tag: noindex/);
+		assert.ok(headers.includes(`script-src 'self' '${THEME_SCRIPT_HASH}'`), "CSP must allow the theme script by hash");
 		const sitemap = site.files.find((f) => f.fileName === "sitemap.xml")?.source as string;
 		assert.equal(all(sitemap, /<loc>/).length, pages.length - 1);
 		assert.ok(site.files.some((f) => f.fileName === `files/${content.site.resumePdf.file}`));

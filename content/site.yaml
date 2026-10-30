@@ -1,8 +1,8 @@
 # Site-wide facts. Everything a visitor reads lives in content/;
 # the templates in src/site/ only lay it out.
 #
-# Anything starting with "TODO:" shows as a dashed box on staging,
-# and a production build refuses to run until it is filled in.
+# A value starting with "TODO:" blocks the production build until it is
+# filled in (staging builds only warn).
 
 name: Jinhun Heo
 descriptor: Mechanical engineering + robotics
@@ -24,13 +24,10 @@ contact:
   phone: (682) 367-3127
   phoneHref: "+16823673127"
   linkedin: https://www.linkedin.com/in/jinhun-heo
-  linkedinLabel: linkedin.com/in/jinhun-heo
 
 resumePdf:
   file: Jinhun-Heo-Resume.pdf
   label: Download resume
-
-availability: "TODO: what you are looking for and when, for example: looking for a Summer 2027 internship in robot hardware or controls"
 
 interests:
   - Nuclear engineering and robotics
@@ -47,4 +44,3 @@ nav:
   - { label: Home, href: / }
   - { label: Resume, href: /resume/ }
   - { label: Projects, href: /projects/ }
-  - { label: Contact, href: /contact/ }
