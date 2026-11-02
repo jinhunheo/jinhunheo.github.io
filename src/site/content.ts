@@ -26,12 +26,6 @@ export interface Site {
 	nav: { label: string; href: string }[];
 }
 
-interface PageCopy {
-	seo: SeoCopy;
-	title: string;
-	intro: string;
-}
-
 export interface Pages {
 	home: {
 		seo: SeoCopy;
@@ -40,8 +34,6 @@ export interface Pages {
 		headshot: { image: string; alt: string };
 		projects: { title: string; more: string };
 	};
-	resume: PageCopy;
-	projects: PageCopy;
 	notFound: { seo: SeoCopy; title: string; text: string };
 }
 
@@ -68,10 +60,20 @@ export interface Metric {
 }
 
 export interface Figure {
+	/** Still image; for a video this is its poster frame. */
 	image: string;
-	kind: "photo" | "cad";
+	kind: "photo" | "cad" | "video";
+	/** For kind: video, the name of the .mp4 in content/media (from npm run import-video). */
+	video?: string;
 	alt: string;
 	caption: string;
+}
+
+export interface ProjectDocument {
+	/** File in content/files, served at /files/<file>. */
+	file: string;
+	label: string;
+	description: string;
 }
 
 export interface Project {
@@ -91,6 +93,7 @@ export interface Project {
 	/** Image for the home page card (from content/media). Leave out to keep an empty space. */
 	cover?: string;
 	figures: Figure[];
+	documents: ProjectDocument[];
 	/** Markdown body. */
 	body: string;
 }
@@ -167,7 +170,10 @@ export function loadContent(root: string): Content {
 			const figures = (data.figures ?? []) as Figure[];
 			for (const [i, fig] of figures.entries()) {
 				requireStrings(`${where} figure ${i + 1}`, fig as unknown as Record<string, unknown>, ["image", "alt", "caption"]);
-				if (fig.kind !== "photo" && fig.kind !== "cad") throw new Error(`${where} figure ${i + 1}: kind must be photo or cad`);
+				if (!["photo", "cad", "video"].includes(fig.kind)) throw new Error(`${where} figure ${i + 1}: kind must be photo, cad or video`);
+				if (fig.kind === "video" && !fs.existsSync(path.join(dir, "media", `${fig.video ?? ""}.mp4`))) {
+					throw new Error(`${where} figure ${i + 1}: video "${fig.video ?? ""}" is not in content/media (run npm run import-video)`);
+				}
 			}
 			return {
 				...(data as unknown as Omit<Project, "slug" | "body" | "figures" | "metrics" | "tools">),
@@ -176,6 +182,7 @@ export function loadContent(root: string): Content {
 				tools: (data.tools ?? []) as string[],
 				metrics: (data.metrics ?? []) as Metric[],
 				figures,
+				documents: (data.documents ?? []) as ProjectDocument[],
 				body,
 			};
 		})
@@ -193,6 +200,11 @@ export function loadContent(root: string): Content {
 	);
 	if (!(site.resumePdf.file in fileSizes)) {
 		throw new Error(`site.yaml resumePdf.file "${site.resumePdf.file}" is not in content/files/`);
+	}
+	for (const p of projects) {
+		for (const d of p.documents) {
+			if (!(d.file in fileSizes)) throw new Error(`content/projects/${p.slug}.md: document "${d.file}" is not in content/files/`);
+		}
 	}
 
 	return { root, site, pages, resume, projects, images, fileSizes };

@@ -1,9 +1,9 @@
 // Progressive enhancement only: every page works without this file.
 
-// Figure viewer: figures become buttons that open the image full-screen,
+// Image viewer (photos and CAD, not videos): figures become buttons that open the image full-screen,
 // in colour, in a native <dialog>. Arrow keys step through figures.
 function setupViewer(): void {
-	const plates = [...document.querySelectorAll<HTMLElement>("[data-viewer] .plate")];
+	const plates = [...document.querySelectorAll<HTMLElement>("[data-viewer] .plate:not(.plate--video)")];
 	if (!plates.length || typeof HTMLDialogElement !== "function") return;
 
 	const dialog = document.createElement("dialog");

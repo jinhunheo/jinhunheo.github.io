@@ -81,6 +81,129 @@
 			}
 		]
 	},
+	"rvl-cad-cable-bridge": {
+		"width": 823,
+		"height": 547,
+		"source": "46e0e8266cabe54a",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-cable-bridge-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-cable-bridge-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-cable-bridge-800.avif"
+			},
+			{
+				"width": 823,
+				"file": "rvl-cad-cable-bridge-823.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-cable-bridge-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-cable-bridge-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-cable-bridge-800.webp"
+			},
+			{
+				"width": 823,
+				"file": "rvl-cad-cable-bridge-823.webp"
+			}
+		]
+	},
+	"rvl-cad-cable-clamp": {
+		"width": 1053,
+		"height": 707,
+		"source": "f42a90024b233b2f",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-cable-clamp-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-cable-clamp-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-cable-clamp-800.avif"
+			},
+			{
+				"width": 1053,
+				"file": "rvl-cad-cable-clamp-1053.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-cable-clamp-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-cable-clamp-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-cable-clamp-800.webp"
+			},
+			{
+				"width": 1053,
+				"file": "rvl-cad-cable-clamp-1053.webp"
+			}
+		]
+	},
+	"rvl-cad-cable-guide": {
+		"width": 995,
+		"height": 717,
+		"source": "e5cb640379e58be6",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-cable-guide-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-cable-guide-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-cable-guide-800.avif"
+			},
+			{
+				"width": 995,
+				"file": "rvl-cad-cable-guide-995.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-cable-guide-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-cable-guide-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-cable-guide-800.webp"
+			},
+			{
+				"width": 995,
+				"file": "rvl-cad-cable-guide-995.webp"
+			}
+		]
+	},
 	"rvl-cad-enclosure-open": {
 		"width": 1040,
 		"height": 697,
@@ -242,6 +365,88 @@
 			{
 				"width": 1092,
 				"file": "rvl-cad-sensor-mount-1092.webp"
+			}
+		]
+	},
+	"rvl-cad-sensor-plate": {
+		"width": 997,
+		"height": 670,
+		"source": "2af4bad85ed7b5a6",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-sensor-plate-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-sensor-plate-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-sensor-plate-800.avif"
+			},
+			{
+				"width": 997,
+				"file": "rvl-cad-sensor-plate-997.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-sensor-plate-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-sensor-plate-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-sensor-plate-800.webp"
+			},
+			{
+				"width": 997,
+				"file": "rvl-cad-sensor-plate-997.webp"
+			}
+		]
+	},
+	"rvl-cad-sensor-tray": {
+		"width": 1087,
+		"height": 651,
+		"source": "5aa9045d70b40566",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-cad-sensor-tray-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-sensor-tray-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-sensor-tray-800.avif"
+			},
+			{
+				"width": 1087,
+				"file": "rvl-cad-sensor-tray-1087.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-cad-sensor-tray-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-cad-sensor-tray-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-cad-sensor-tray-800.webp"
+			},
+			{
+				"width": 1087,
+				"file": "rvl-cad-sensor-tray-1087.webp"
 			}
 		]
 	},
@@ -433,6 +638,47 @@
 			}
 		]
 	},
+	"rvl-husky-card": {
+		"width": 1200,
+		"height": 900,
+		"source": "0a391e33a5d7a7c3",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-husky-card-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-husky-card-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-husky-card-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-husky-card-1200.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-husky-card-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-husky-card-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-husky-card-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-husky-card-1200.webp"
+			}
+		]
+	},
 	"rvl-husky-deck": {
 		"width": 1800,
 		"height": 2400,
@@ -577,6 +823,261 @@
 			{
 				"width": 1600,
 				"file": "rvl-mount-and-clip-1600.webp"
+			}
+		]
+	},
+	"rw-card": {
+		"width": 1800,
+		"height": 1350,
+		"source": "55b4565c580f5166",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rw-card-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rw-card-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rw-card-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rw-card-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rw-card-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rw-card-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rw-card-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rw-card-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rw-card-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rw-card-1600.webp"
+			}
+		]
+	},
+	"rw-disturbance-poster": {
+		"width": 720,
+		"height": 1280,
+		"source": "7fe7b6d58b8a6cb2",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rw-disturbance-poster-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rw-disturbance-poster-640.avif"
+			},
+			{
+				"width": 720,
+				"file": "rw-disturbance-poster-720.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rw-disturbance-poster-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rw-disturbance-poster-640.webp"
+			},
+			{
+				"width": 720,
+				"file": "rw-disturbance-poster-720.webp"
+			}
+		]
+	},
+	"rw-motor-support-drawing": {
+		"width": 958,
+		"height": 721,
+		"source": "b61fec9da124ed22",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rw-motor-support-drawing-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rw-motor-support-drawing-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rw-motor-support-drawing-800.avif"
+			},
+			{
+				"width": 958,
+				"file": "rw-motor-support-drawing-958.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rw-motor-support-drawing-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rw-motor-support-drawing-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rw-motor-support-drawing-800.webp"
+			},
+			{
+				"width": 958,
+				"file": "rw-motor-support-drawing-958.webp"
+			}
+		]
+	},
+	"rw-platform": {
+		"width": 1800,
+		"height": 2400,
+		"source": "0dff366b16e75c79",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rw-platform-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rw-platform-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rw-platform-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rw-platform-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rw-platform-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rw-platform-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rw-platform-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rw-platform-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rw-platform-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rw-platform-1600.webp"
+			}
+		]
+	},
+	"rw-tracking-poster": {
+		"width": 360,
+		"height": 480,
+		"source": "bd9aedd30ccaec92",
+		"avif": [
+			{
+				"width": 360,
+				"file": "rw-tracking-poster-360.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 360,
+				"file": "rw-tracking-poster-360.webp"
+			}
+		]
+	},
+	"rw-tracking-view": {
+		"width": 471,
+		"height": 222,
+		"source": "29fd514ee20e3d60",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rw-tracking-view-400.avif"
+			},
+			{
+				"width": 471,
+				"file": "rw-tracking-view-471.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rw-tracking-view-400.webp"
+			},
+			{
+				"width": 471,
+				"file": "rw-tracking-view-471.webp"
+			}
+		]
+	},
+	"rw-wiring": {
+		"width": 1052,
+		"height": 662,
+		"source": "00b7fc2c61fcb73c",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rw-wiring-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rw-wiring-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rw-wiring-800.avif"
+			},
+			{
+				"width": 1052,
+				"file": "rw-wiring-1052.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rw-wiring-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rw-wiring-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rw-wiring-800.webp"
+			},
+			{
+				"width": 1052,
+				"file": "rw-wiring-1052.webp"
 			}
 		]
 	}

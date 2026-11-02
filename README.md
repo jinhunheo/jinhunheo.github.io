@@ -9,10 +9,10 @@ Workers Free) with the `cf` CLI. Design direction: [DESIGN.md](DESIGN.md).
 |---|---|
 | `content/site.yaml` | Name, contact details, interests, nav, URLs |
 | `content/pages.yaml` | Copy and search descriptions for each page |
-| `content/resume.yaml` | The resume as data (keep in step with the PDF) |
+| `content/resume.yaml` | Resume data (education, skills) used in the search-engine profile; no page shows it now |
 | `content/projects/*.md` | One file per project: frontmatter (title block, metrics, figures) + write-up |
 | `content/media/` | Source photos and CAD screenshots (metadata stripped) |
-| `content/files/` | Downloadable files, served at `/files/…` |
+| `content/files/` | Downloads (PDFs) and video captions, served at `/files/…` |
 | `src/site/` | Templates that render the content to HTML (no copy in here) |
 | `src/client/` | CSS, fonts and the small progressive-enhancement script |
 | `src/generated/` | Image sizes and manifests from `npm run images` (committed) |
@@ -38,6 +38,21 @@ npm run images
 Then reference it in the project's Markdown frontmatter: as a gallery figure
 (`image: project-part-name`), and/or as the home page card image (`cover: project-part-name`).
 Projects without a `cover` show an empty rounded space on the home page.
+Add a video (needs ffmpeg: `winget install Gyan.FFmpeg`). It becomes a silent MP4 with
+no metadata, plus a poster frame:
+
+```sh
+npm run import-video -- "C:/path/to/IMG_1234.MOV" project-demo 1.5
+npm run images
+```
+
+Then add it as a figure with `kind: video`, `video: project-demo` and
+`image: project-demo-poster`, and put a one-line caption file at
+`content/files/project-demo.vtt` (copy an existing one).
+
+Add a PDF report to a project: copy it into `content/files/` and list it under
+`documents:` in the project's frontmatter (see `content/projects/reaction-wheel.md`).
+
 Run `npm run images` again after renaming a page title, so its social preview matches.
 
 ## Checks and deploys

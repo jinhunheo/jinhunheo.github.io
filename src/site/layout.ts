@@ -1,9 +1,9 @@
-import { datumMark } from "./components.ts";
+import { logoMark } from "./components.ts";
 import { html, raw, type Raw } from "./html.ts";
 import { headMeta, type PageSeo, type RenderContext } from "./seo.ts";
 import { THEME_SCRIPT } from "./theme.ts";
 
-const themeToggle = html`<button class="theme-toggle" type="button" aria-pressed="false" hidden>
+const themeToggle = html`<button class="theme-toggle icon-btn" type="button" aria-pressed="false" hidden>
 	<span class="visually-hidden">Dark mode</span>
 	<svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.4 14.6A8.5 8.5 0 0 1 9.4 3.6a8.5 8.5 0 1 0 11 11z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
 	<svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
@@ -16,10 +16,7 @@ const mailIcon = raw(
 	'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.75" y="4.75" width="18.5" height="14.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
 );
 
-/**
- * @param o.section which top-level nav item is current ("/", "/resume/", …)
- */
-export function layout(ctx: RenderContext, o: { seo: PageSeo; section?: string; body: Raw; bodyClass?: string }): string {
+export function layout(ctx: RenderContext, o: { seo: PageSeo; body: Raw; bodyClass?: string }): string {
 	const { site } = ctx.content;
 	return `<!doctype html>${html`<html lang="en">
 <head>
@@ -39,27 +36,25 @@ export function layout(ctx: RenderContext, o: { seo: PageSeo; section?: string; 
 <body class="${o.bodyClass ?? ""}">
 	<a class="skip" href="#main">Skip to content</a>
 	<header class="masthead wrap">
-		<a class="masthead__mark" href="/">${datumMark()}<span>${site.name}</span></a>
+		<a class="masthead__mark" href="/" aria-label="${site.name}, home">${logoMark()}<span class="masthead__name" aria-hidden="true">${site.name}</span></a>
 		<nav class="nav" aria-label="Main">
 			<ul class="nav__list" role="list">
-				${site.nav.map(
-					(item) => html`<li><a class="nav__link" href="${item.href}" ${o.section === item.href ? html`aria-current="page"` : ""}>${item.label}</a></li>`,
-				)}
+				${site.nav.map((item) => html`<li><a class="nav__link" href="${item.href}">${item.label}</a></li>`)}
 			</ul>
 		</nav>
-		${themeToggle}
+		<div class="masthead__actions">
+			<a class="icon-btn" href="${site.contact.linkedin}" target="_blank" rel="noopener me" aria-label="${site.name} on LinkedIn">${linkedinIcon}</a>
+			<a class="icon-btn" href="mailto:${site.contact.email}" data-copy-email="${site.contact.email}" aria-label="Email ${site.name} (${site.contact.email})">${mailIcon}</a>
+			${themeToggle}
+		</div>
 	</header>
 	<main id="main" class="wrap" tabindex="-1">
 		${o.body}
 	</main>
 	<footer class="footer wrap">
 		<p class="footer__copy">© ${site.name} ${ctx.date.getFullYear()}</p>
-		<ul class="footer__links" role="list">
-			<li><a class="footer__icon" href="${site.contact.linkedin}" target="_blank" rel="noopener me" aria-label="${site.name} on LinkedIn">${linkedinIcon}</a></li>
-			<li><a class="footer__icon" href="mailto:${site.contact.email}" data-copy-email="${site.contact.email}" aria-label="Email ${site.name} (${site.contact.email})">${mailIcon}</a></li>
-		</ul>
-		<p class="toast" role="status" aria-live="polite"></p>
 	</footer>
+	<p class="toast" role="status" aria-live="polite"></p>
 </body>
 </html>
 `}`;

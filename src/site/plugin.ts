@@ -73,7 +73,8 @@ export function sitePlugin(): Plugin {
 					if (pathname.startsWith("/files/")) {
 						const file = path.join(contentDir, "files", path.basename(pathname));
 						if (!fs.existsSync(file)) return next();
-						res.setHeader("Content-Type", "application/pdf");
+						const types: Record<string, string> = { ".pdf": "application/pdf", ".vtt": "text/vtt; charset=utf-8" };
+						res.setHeader("Content-Type", types[path.extname(file)] ?? "application/octet-stream");
 						res.end(fs.readFileSync(file));
 						return;
 					}

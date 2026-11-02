@@ -16,29 +16,6 @@ home:
     title: Projects
     more: Learn more
 
-resume:
-  seo:
-    title: Resume · Jinhun Heo
-    description: >-
-      Resume of Jinhun Heo: BS Mechanical Engineering with a robotics minor at UT Austin
-      (expected May 2029), with research in robot hardware, controls and computer vision.
-  title: Resume
-  intro: >-
-    The same resume as the PDF, readable on any screen. Each project links to its
-    full write-up.
-
-projects:
-  seo:
-    title: Projects · Jinhun Heo
-    description: >-
-      Internship, research and student-team projects by Jinhun Heo: hardware for a field
-      robot, a reaction wheel platform, human re-identification on a humanoid robot and a
-      Baja SAE throttle pedal.
-  title: Projects
-  intro: >-
-    Internship, research and student-team work, newest first. Each project covers the
-    problem, what I built and how it measured up.
-
 notFound:
   seo:
     title: Page not found · Jinhun Heo

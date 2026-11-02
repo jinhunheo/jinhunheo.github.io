@@ -1,18 +1,21 @@
-import { dimension, figures, metricList, picture, projectCard, register, sectionHead, titleBlock } from "./components.ts";
-import type { Project, ResumeEntry } from "./content.ts";
-import { html, type Raw } from "./html.ts";
+import { dimension, documentLink, figures, metricList, picture, projectCard, sectionHead, titleBlock } from "./components.ts";
+import type { Project } from "./content.ts";
+import { html } from "./html.ts";
 import { layout } from "./layout.ts";
 import { markdownSections } from "./markdown.ts";
 import { breadcrumbs, person, profilePage, type RenderContext } from "./seo.ts";
 
 export interface PageOut {
 	route: string;
-	/** Output path relative to the site root, e.g. "resume/index.html". */
+	/** Output path relative to the site root, e.g. "projects/x/index.html". */
 	file: string;
 	/** Social preview id and the text drawn on it. */
 	og: { id: string; label: string; title: string; metric?: { value: string; unit: string; label: string } };
 	html: string;
 }
+
+/** Projects live on the home page; this is where every "back to projects" link goes. */
+const PROJECTS = "/#projects";
 
 const fileFor = (route: string): string => (route === "/" ? "index.html" : `${route.replace(/^\/|\/$/g, "")}/index.html`);
 
@@ -30,7 +33,7 @@ export function home(ctx: RenderContext): PageOut {
 		</div>
 	</section>
 
-	<section class="work" aria-labelledby="work-title">
+	<section class="work" id="projects" aria-labelledby="work-title">
 		<h2 class="work__title" id="work-title">${copy.projects.title}</h2>
 		<ol class="cards" role="list">
 			${projects.map((p) => projectCard(ctx.content, p, copy.projects.more))}
@@ -43,117 +46,8 @@ export function home(ctx: RenderContext): PageOut {
 		og: { id: "home", label: "Home", title: site.name },
 		html: layout(ctx, {
 			seo: { route: "/", title: copy.seo.title, description: copy.seo.description, og: "home", type: "profile", jsonLd: [profilePage(ctx)] },
-			section: "/",
 			body,
 			bodyClass: "page-home",
-		}),
-	};
-}
-
-function resumeEntry(entry: ResumeEntry, projects: Project[]): Raw {
-	const project = projects.find((p) => p.slug === entry.project);
-	return html`<article class="cv-entry">
-		<header class="cv-entry__head">
-			<h3 class="cv-entry__title">${entry.title}</h3>
-			<p class="cv-entry__org">${entry.org}</p>
-			<p class="cv-entry__dates label">${entry.dates}</p>
-		</header>
-		<ul class="cv-entry__bullets">${entry.bullets.map((b) => html`<li>${b}</li>`)}</ul>
-		${project ? html`<p><a class="textlink" href="/projects/${project.slug}/">Read the write-up<span class="visually-hidden">: ${project.register}</span></a></p>` : ""}
-	</article>`;
-}
-
-export function resumePage(ctx: RenderContext): PageOut {
-	const { site, pages, resume, projects } = ctx.content;
-	const copy = pages.resume;
-	const pdf = `/files/${site.resumePdf.file}`;
-	const kb = Math.round((ctx.content.fileSizes[site.resumePdf.file] ?? 0) / 1024);
-	const body = html`
-	<header class="page-head">
-		<h1 class="page-head__title display">${copy.title}</h1>
-		<p class="page-head__intro">${copy.intro}</p>
-		<div class="actions">
-			<a class="btn btn--primary" href="${pdf}" download>${site.resumePdf.label}<span class="btn__meta">PDF · ${kb} KB</span></a>
-			<a class="btn" href="mailto:${site.contact.email}">Email me</a>
-		</div>
-	</header>
-	<section class="band" aria-labelledby="cv-education">
-		${sectionHead("cv-education", "Education")}
-		<div class="band__body">
-			${resume.education.map(
-				(e) => html`<article class="cv-entry">
-					<header class="cv-entry__head">
-						<h3 class="cv-entry__title">${e.school}</h3>
-						<p class="cv-entry__org">${e.degree}</p>
-						<p class="cv-entry__dates label">${e.dates} · GPA ${e.gpa}</p>
-					</header>
-				</article>`,
-			)}
-		</div>
-	</section>
-	<section class="band" aria-labelledby="cv-skills">
-		${sectionHead("cv-skills", "Skills")}
-		<dl class="band__body skills">
-			${resume.skills.map((s) => html`<div class="skills__row"><dt class="label">${s.group}</dt><dd>${s.items.join(" · ")}</dd></div>`)}
-		</dl>
-	</section>
-	<section class="band" aria-labelledby="cv-experience">
-		${sectionHead("cv-experience", "Work experience")}
-		<div class="band__body">${resume.experience.map((e) => resumeEntry(e, projects))}</div>
-	</section>
-	<section class="band" aria-labelledby="cv-projects">
-		${sectionHead("cv-projects", "Projects")}
-		<div class="band__body">${resume.projects.map((e) => resumeEntry(e, projects))}</div>
-	</section>`;
-	return {
-		route: "/resume/",
-		file: fileFor("/resume/"),
-		og: { id: "resume", label: "Resume", title: copy.title },
-		html: layout(ctx, {
-			seo: {
-				route: "/resume/",
-				title: copy.seo.title,
-				description: copy.seo.description,
-				og: "resume",
-				jsonLd: [breadcrumbs(ctx, [{ name: "Home", route: "/" }, { name: copy.title, route: "/resume/" }])],
-			},
-			section: "/resume/",
-			body,
-		}),
-	};
-}
-
-export function projectsPage(ctx: RenderContext): PageOut {
-	const { site, pages, projects } = ctx.content;
-	const copy = pages.projects;
-	const groups = Object.entries(site.categories)
-		.map(([key, label]) => ({ key, label, items: projects.filter((p) => p.category === key) }))
-		.filter((g) => g.items.length);
-	const body = html`
-	<header class="page-head">
-		<h1 class="page-head__title display">${copy.title}</h1>
-		<p class="page-head__intro">${copy.intro}</p>
-	</header>
-	${groups.map(
-		(g) => html`<section class="band" aria-labelledby="group-${g.key}">
-			${sectionHead(`group-${g.key}`, g.label)}
-			${register(g.items)}
-		</section>`,
-	)}`;
-	return {
-		route: "/projects/",
-		file: fileFor("/projects/"),
-		og: { id: "projects", label: "Projects", title: copy.title },
-		html: layout(ctx, {
-			seo: {
-				route: "/projects/",
-				title: copy.seo.title,
-				description: copy.seo.description,
-				og: "projects",
-				jsonLd: [breadcrumbs(ctx, [{ name: "Home", route: "/" }, { name: copy.title, route: "/projects/" }])],
-			},
-			section: "/projects/",
-			body,
 		}),
 	};
 }
@@ -170,9 +64,12 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 	const body = html`
 	<article class="project">
 		<header class="project__head">
-			<p class="crumb label"><a href="/projects/">Projects</a> <span aria-hidden="true">/</span> ${site.categories[project.category]}</p>
+			<p class="crumb label"><a href="${PROJECTS}">Projects</a> <span aria-hidden="true">/</span> ${site.categories[project.category]}</p>
 			<h1 class="project__title display">${project.title}</h1>
 			<p class="lede">${project.summary}</p>
+			${project.documents.length
+				? html`<div class="actions">${project.documents.map((d, i) => documentLink(ctx.content, d, i === 0 ? "btn btn--primary" : "btn"))}</div>`
+				: ""}
 			${titleBlock(ctx.content, project)}
 		</header>
 		${project.metrics.length
@@ -187,6 +84,19 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 				<div class="band__body prose">${s.body}</div>
 			</section>`,
 		)}
+		${project.documents.length
+			? html`<section class="band" aria-labelledby="report">
+					${sectionHead("report", project.documents.length > 1 ? "Reports" : "Report")}
+					<div class="band__body">
+						${project.documents.map(
+							(d) => html`<div class="doc">
+								<p class="doc__text">${d.description}</p>
+								${documentLink(ctx.content, d, "btn")}
+							</div>`,
+						)}
+					</div>
+				</section>`
+			: ""}
 		${project.figures.length
 			? html`<section class="band band--figures" aria-labelledby="gallery">
 					${sectionHead("gallery", "Gallery")}
@@ -195,7 +105,7 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 			: ""}
 		<nav class="pager" aria-label="More projects">
 			${prev ? html`<a class="pager__link pager__link--prev" href="/projects/${prev.slug}/"><span class="label">Previous project</span><span>${prev.register}</span></a>` : html`<span></span>`}
-			${next ? html`<a class="pager__link pager__link--next" href="/projects/${next.slug}/"><span class="label">Next project</span><span>${next.register}</span></a>` : html`<a class="pager__link pager__link--next" href="/projects/"><span class="label">Back to</span><span>All projects</span></a>`}
+			${next ? html`<a class="pager__link pager__link--next" href="/projects/${next.slug}/"><span class="label">Next project</span><span>${next.register}</span></a>` : html`<a class="pager__link pager__link--next" href="${PROJECTS}"><span class="label">Back to</span><span>All projects</span></a>`}
 		</nav>
 	</article>`;
 
@@ -223,12 +133,11 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 					},
 					breadcrumbs(ctx, [
 						{ name: "Home", route: "/" },
-						{ name: "Projects", route: "/projects/" },
+						{ name: "Projects", route: PROJECTS },
 						{ name: project.register, route },
 					]),
 				],
 			},
-			section: "/projects/",
 			body,
 		}),
 	};
@@ -243,7 +152,7 @@ export function notFoundPage(ctx: RenderContext): PageOut {
 		<p class="page-head__intro">${copy.text}</p>
 		<div class="actions">
 			<a class="btn btn--primary" href="/">Go to the home page</a>
-			<a class="btn" href="/projects/">See projects</a>
+			<a class="btn" href="${PROJECTS}">See projects</a>
 		</div>
 	</header>`;
 	return {

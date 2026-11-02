@@ -1,12 +1,18 @@
-// The drawing-set vocabulary from DESIGN.md: pictures, dimension callouts,
-// title blocks, the project register and figure plates.
-import type { Content, Figure, ImageEntry, Metric, Project } from "./content.ts";
+// Shared building blocks (see DESIGN.md): pictures, the logo, dimension
+// callouts, title blocks, project cards and the gallery.
+import type { Content, Figure, ImageEntry, Metric, Project, ProjectDocument } from "./content.ts";
 import { html, raw, text, type Raw } from "./html.ts";
 
 const IMG_BASE = "/src/generated/img/";
 
 const srcset = (variants: ImageEntry["webp"]): string =>
 	variants.map((v) => `${IMG_BASE}${v.file} ${v.width}w`).join(", ");
+
+const imageEntry = (content: Content, name: string): ImageEntry => {
+	const entry = content.images[name];
+	if (!entry) throw new Error(`Image "${name}" is not in src/generated/images.json. Run "npm run images".`);
+	return entry;
+};
 
 export interface PictureOptions {
 	alt: string;
@@ -16,8 +22,7 @@ export interface PictureOptions {
 }
 
 export function picture(content: Content, name: string, o: PictureOptions): Raw {
-	const entry = content.images[name];
-	if (!entry) throw new Error(`Image "${name}" is not in src/generated/images.json. Run \`npm run images\`.`);
+	const entry = imageEntry(content, name);
 	const fallback = entry.webp.find((v) => v.width >= 800) ?? entry.webp.at(-1);
 	return html`<picture class="${o.className ?? ""}">
 		<source type="image/avif" srcset="${srcset(entry.avif)}" sizes="${o.sizes}">
@@ -27,11 +32,20 @@ export function picture(content: Content, name: string, o: PictureOptions): Raw 
 	</picture>`;
 }
 
-export const datumMark = (className = "datum"): Raw =>
-	html`<svg class="${className}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-		<circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
-		<path d="M12 1.5A10.5 10.5 0 0 1 22.5 12H12zM12 22.5A10.5 10.5 0 0 1 1.5 12H12z" fill="currentColor"/>
+/** "JH" monogram: initials knocked out of a rounded square. Same drawing as public/favicon.svg. */
+export const logoMark = (): Raw =>
+	html`<svg class="logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+		<rect class="logo__tile" width="32" height="32" rx="9"/>
+		<g class="logo__letters" fill="none" stroke-width="2.6" stroke-linecap="square">
+			<path d="M14 9V18.2a4 4 0 0 1-8 0v-.7"/><path d="M18.5 9v14M26.5 9v14M18.5 16h8"/>
+		</g>
 	</svg>`;
+
+/** Link that opens a document (PDF) from content/files in the browser's own reader. */
+export function documentLink(content: Content, d: ProjectDocument, className: string): Raw {
+	const mb = ((content.fileSizes[d.file] ?? 0) / 1024 / 1024).toFixed(1);
+	return html`<a class="${className}" href="/files/${d.file}" target="_blank" rel="noopener">${d.label}<span class="btn__meta">PDF · ${mb} MB</span></a>`;
+}
 
 /** A measured value drawn as a dimension line with arrowheads and extension lines. */
 export function dimension(metric: Metric): Raw {
@@ -60,26 +74,6 @@ export function sectionHead(id: string, title: string, intro?: string): Raw {
 	</header>`;
 }
 
-/** Bill-of-materials style list of projects (h3 rows). The whole row is the link target. */
-export function register(projects: Project[]): Raw {
-	return html`<ol class="register" role="list">
-		${projects.map((p) => {
-			const featured = p.metrics.find((m) => m.featured) ?? p.metrics[0];
-			return html`<li class="register__row">
-				<h3 class="register__title"><a class="register__link" href="/projects/${p.slug}/">${p.register}</a></h3>
-				<p class="register__summary">${p.org}</p>
-				<dl class="register__meta label">
-					<div><dt>Role</dt><dd>${p.role}</dd></div>
-					<div><dt>Dates</dt><dd>${p.dates}</dd></div>
-				</dl>
-				${featured
-					? html`<p class="register__figure"><span class="register__value">${featured.value}<span class="register__unit">${featured.unit}</span></span> <span class="register__label label">${featured.label}</span></p>`
-					: ""}
-			</li>`;
-		})}
-	</ol>`;
-}
-
 /** The project's title block: the corner table of a drawing, as a grid. */
 export function titleBlock(content: Content, p: Project): Raw {
 	const rows: [string, string][] = [
@@ -96,15 +90,17 @@ export function titleBlock(content: Content, p: Project): Raw {
 
 type Span = 4 | 6;
 
+const isPortrait = (content: Content, f: Figure): boolean => {
+	const img = content.images[f.image];
+	return !!img && img.height > img.width;
+};
+
 /**
  * Lays figures out on the 12-column grid: portrait plates take 4 columns,
  * landscape plates 6. A row of two portraits widens to 6 + 6.
  */
 export function figureSpans(content: Content, figures: Figure[]): Span[] {
-	const natural = figures.map((f): Span => {
-		const img = content.images[f.image];
-		return img && img.height > img.width ? 4 : 6;
-	});
+	const natural = figures.map((f): Span => (isPortrait(content, f) ? 4 : 6));
 	const spans = [...natural];
 	let rowStart = 0;
 	let used = 0;
@@ -125,7 +121,7 @@ export function figureSpans(content: Content, figures: Figure[]): Span[] {
 
 /**
  * Home page project row: image (or an empty space until one is added) beside
- * the title, summary and a "Learn more" link.
+ * the title, summary, "Learn more" and any documents.
  */
 export function projectCard(content: Content, p: Project, more: string): Raw {
 	const href = `/projects/${p.slug}/`;
@@ -138,9 +134,27 @@ export function projectCard(content: Content, p: Project, more: string): Raw {
 			<p class="card__meta">${content.site.categories[p.category]} · ${p.dates}</p>
 			<h3 class="card__title">${p.register}</h3>
 			<p class="card__text">${p.summary}</p>
-			<a class="btn btn--primary" href="${href}">${more}<span class="visually-hidden"> about ${p.register}</span></a>
+			<div class="card__actions">
+				<a class="btn btn--primary" href="${href}">${more}<span class="visually-hidden"> about ${p.register}</span></a>
+				${p.documents.map((d) => documentLink(content, d, "btn"))}
+			</div>
 		</div>
 	</li>`;
+}
+
+/**
+ * A silent project video. Nothing loads until it is played (no autoplay); the
+ * poster frame comes from the image pipeline.
+ */
+function video(content: Content, f: Figure): Raw {
+	const poster = imageEntry(content, f.image);
+	const frame = poster.webp.find((v) => v.width >= 800) ?? poster.webp.at(-1);
+	const captions = `${f.video ?? ""}.vtt`;
+	return html`<video class="plate__video" controls muted playsinline preload="none"
+		poster="${IMG_BASE}${frame?.file ?? ""}" width="${poster.width}" height="${poster.height}" aria-label="${f.alt}">
+		<source src="/content/media/${f.video ?? ""}.mp4" type="video/mp4">
+		${captions in content.fileSizes ? html`<track kind="captions" src="/files/${captions}" srclang="en" label="English">` : ""}
+	</video>`;
 }
 
 export function figures(content: Content, p: Project): Raw {
@@ -148,14 +162,13 @@ export function figures(content: Content, p: Project): Raw {
 	return html`<div class="figures" data-viewer>
 		${p.figures.map((f, i) => {
 			const span = spans[i] ?? 6;
-			const img = content.images[f.image];
-			const orientation = img && img.height > img.width ? "portrait" : "landscape";
+			const orientation = isPortrait(content, f) ? "portrait" : "landscape";
 			const sizes =
 				span === 4
 					? "(min-width: 1440px) 440px, (min-width: 1000px) 30vw, (min-width: 640px) 50vw, 100vw"
 					: "(min-width: 1440px) 680px, (min-width: 640px) 50vw, 100vw";
 			return html`<figure class="plate plate--${f.kind} plate--${orientation} plate--span-${span}">
-				<div class="plate__frame">${picture(content, f.image, { alt: f.alt, sizes })}</div>
+				<div class="plate__frame">${f.kind === "video" ? video(content, f) : picture(content, f.image, { alt: f.alt, sizes })}</div>
 				<figcaption class="plate__caption">${text(f.caption)}</figcaption>
 			</figure>`;
 		})}

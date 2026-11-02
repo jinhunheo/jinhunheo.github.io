@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { findTodos, loadContent, siteUrl, type Content, type SiteMode, type Todo } from "./content.ts";
-import { home, notFoundPage, projectPage, projectsPage, resumePage, type PageOut } from "./pages.ts";
+import { home, notFoundPage, projectPage, type PageOut } from "./pages.ts";
 import { headers, robots, sitemap, type RenderContext } from "./seo.ts";
 
 export interface ExtraFile {
@@ -23,8 +23,6 @@ export function siteMode(viteMode: string): SiteMode {
 export function renderPages(ctx: RenderContext): PageOut[] {
 	return [
 		home(ctx),
-		resumePage(ctx),
-		projectsPage(ctx),
 		...ctx.content.projects.map((p) => projectPage(ctx, p)),
 		notFoundPage(ctx),
 	];

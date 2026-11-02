@@ -72,18 +72,44 @@ describe("images", () => {
 		}
 	});
 
-	test("figures tile the 12-column grid in full rows", () => {
+	test("figures tile the 12-column grid: only the last row may be partial", () => {
 		for (const p of content.projects) {
 			const spans = figureSpans(content, p.figures);
-			const whole = spans.reduce((sum, s) => sum + s, 0);
-			if (spans.length > 1) assert.equal(whole % 12, 0, `${p.slug}: ${spans.join(",")}`);
+			let used = 0;
+			spans.forEach((span, i) => {
+				if (used + span > 12) {
+					assert.equal(used, 12, `${p.slug}: row before figure ${i + 1} is not full (${spans.join(",")})`);
+					used = 0;
+				}
+				used += span;
+				if (used === 12) used = 0;
+			});
+		}
+	});
+
+	test("videos and downloads fit the Workers static-asset limit (25 MiB)", () => {
+		const limit = 25 * 1024 * 1024;
+		for (const dir of ["media", "files"]) {
+			for (const file of fs.readdirSync(path.join(root, "content", dir))) {
+				assert.ok(fs.statSync(path.join(root, "content", dir, file)).size < limit, `${dir}/${file} is too large`);
+			}
+		}
+	});
+
+	test("every video figure has its mp4, poster and captions", () => {
+		for (const p of content.projects) {
+			for (const f of p.figures.filter((fig) => fig.kind === "video")) {
+				assert.ok(fs.existsSync(path.join(root, "content", "media", `${f.video}.mp4`)), `${f.video}.mp4`);
+				assert.ok(content.images[f.image], `poster ${f.image}`);
+				assert.ok(`${f.video}.vtt` in content.fileSizes, `captions ${f.video}.vtt`);
+			}
 		}
 	});
 
 	test("social preview images are current for every page", () => {
 		const og = JSON.parse(fs.readFileSync(path.join(root, "src", "generated", "og.json"), "utf8")) as Record<
 			string,
-			{ title: string; sheet: string }
+			{ title: string; label: string }
 		>;
 		for (const page of pages) {
 			assert.ok(fs.existsSync(path.join(root, "public", "og", `${page.og.id}.jpg`)), page.og.id);
@@ -167,10 +193,14 @@ describe("rendered pages", () => {
 				assert.deepEqual(inline.map((m) => m[2]), [THEME_SCRIPT], "only the theme script may be inline");
 			});
 
-			test("has the dark-mode toggle and footer contact icons", () => {
-				assert.match(html, /<button class="theme-toggle"[^>]*aria-pressed="false"/);
-				assert.match(html, /href="https:\/\/www\.linkedin\.com\/in\/[^"]+"[^>]*aria-label="[^"]+LinkedIn"/);
-				assert.match(html, /href="mailto:[^"]+" data-copy-email="[^"]+"/);
+			test("header has the JH logo, Projects link, contact icons and theme toggle", () => {
+				const header = /<header class="masthead[\s\S]*?<\/header>/.exec(html)?.[0] ?? "";
+				assert.match(header, /<svg class="logo"/);
+				assert.match(header, /<a class="nav__link" href="\/#projects">Projects<\/a>/);
+				assert.match(header, /href="https:\/\/www\.linkedin\.com\/in\/[^"]+"[^>]*aria-label="[^"]+LinkedIn"/);
+				assert.match(header, /href="mailto:[^"]+" data-copy-email="[^"]+"/);
+				assert.match(header, /<button class="theme-toggle icon-btn"[^>]*aria-pressed="false"/);
+				assert.match(html, /<p class="footer__copy">© Jinhun Heo \d{4}<\/p>/);
 				assert.doesNotMatch(html, /class="todo"/);
 			});
 		});

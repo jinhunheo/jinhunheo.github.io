@@ -17,7 +17,7 @@ metrics:
     unit: "%"
     label: less hardware assembly time
     featured: true
-cover: rvl-husky-deck
+cover: rvl-husky-card
 figures:
   - image: rvl-husky-field
     kind: photo
@@ -39,6 +39,14 @@ figures:
     kind: cad
     alt: CAD model of the snap-fit clip, showing the hooked profile that grips the rail.
     caption: Snap-fit clip. The hook holds through vibration and comes off by hand.
+  - image: rvl-cad-sensor-plate
+    kind: cad
+    alt: CAD model of a rectangular mount plate with two counterbored holes and two small mounting holes.
+    caption: Mount for sensor electronics, such as the IMU and GPS.
+  - image: rvl-cad-sensor-tray
+    kind: cad
+    alt: CAD model of a flat tray with raised side rails, a curved back edge and four countersunk holes.
+    caption: Tray-style mount with side rails for sensor electronics.
   - image: rvl-cad-enclosure
     kind: cad
     alt: CAD model of the closed microcontroller enclosure, with two windows showing the board inside.
@@ -55,6 +63,18 @@ figures:
     kind: photo
     alt: Another angle of the printed enclosure, showing the board's pin headers and USB connector through the windows.
     caption: Pins and USB stay reachable without opening the case.
+  - image: rvl-cad-cable-guide
+    kind: cad
+    alt: CAD model of a long bracket with a round cable ring at each end.
+    caption: Cable guide. Rings at each end route sensor cables, like the ZED camera's, along the extrusion.
+  - image: rvl-cad-cable-clamp
+    kind: cad
+    alt: CAD model of a U-shaped cable clamp with a bolt tab on each end.
+    caption: Cable clamp that holds sensor cables against the aluminium extrusion.
+  - image: rvl-cad-cable-bridge
+    kind: cad
+    alt: CAD model of a low bridge-shaped bracket with two countersunk holes and raised end tabs.
+    caption: Cable bridge that bolts to the extrusion to keep sensor cables in place.
   - image: rvl-cad-fan-grill
     kind: cad
     alt: CAD model of an angled duct with a honeycomb grill over its opening and a four-hole mounting flange.
@@ -75,8 +95,8 @@ time, and anything loose on a vibrating robot turns into downtime.
 ## What I designed
 
 **Sensor mounts.** Mounts with sliding alignment rails and slots for Velcro straps,
-so sensors and communication hardware go on with far fewer fasteners. Hardware
-assembly time dropped by 67%.
+so sensors and communication hardware go on with far fewer fasteners, plus mounts for
+sensor electronics like the IMU and GPS. Hardware assembly time dropped by 67%.
 
 **Snap-fit clips.** Custom clips that hold electronics on the Husky's metal rails
 through high-vibration tasks, but detach by hand when something needs troubleshooting.
@@ -85,9 +105,9 @@ through high-vibration tasks, but detach by hand when something needs troublesho
 covers the GPIO pin headers and PCB traces from above, and leaves openings so pins can
 still be reconfigured and the status LEDs stay visible.
 
-**Fan grills and cable guards.** Grills that keep debris out of the UGV's internal
-wiring, and cable-management parts that organise and protect the exposed stereo camera
-cables during transport.
+**Fan grills and cable management.** Grills that keep debris out of the UGV's internal
+wiring, and cable guides, clamps and bridges that route sensor cables, like the ZED
+stereo camera's, neatly along the aluminium extrusions and protect them during transport.
 
 **Sensor test rig.** An indoor rig for testing and calibrating sensors, so they can be
 verified in the lab without assembling the full UGV.

@@ -13,6 +13,7 @@
     "test": "node --test \"tests/**/*.test.ts\"",
     "images": "node scripts/images.ts",
     "import-media": "node scripts/import-media.ts",
+    "import-video": "node scripts/import-video.ts",
     "build:staging": "cf build --mode staging",
     "build": "cf build",
     "check": "npm run typecheck && npm test && cf deploy --dry-run --mode staging",
