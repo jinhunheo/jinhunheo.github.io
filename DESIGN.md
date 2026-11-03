@@ -62,9 +62,9 @@ Sizes (fluid): greeting 36 → 64 px · page titles 40 → 72 px · project titl
   and the light/dark toggle on the right. The mail icon copies the address (with a short
   "Copied" note) and opens the visitor's mail app.
 - **Home**: round headshot beside "Hey, I'm Jinhun." and the bio (Jinhun's own words,
-  verbatim). Below it, `#projects`: every project as a row with its card image (or an
-  empty rounded space until one is added), meta line, title, summary, "Learn more" and
-  any report.
+  verbatim). Below it, `#projects`: every project as a row with a square card image
+  (cropped to show the whole machine; an empty rounded space until one is added), meta
+  line, title, summary, "Learn more" and any report.
 - **Project page**: title, summary, report button (if any), title block, dimensioned
   results, write-up, a Report section, then a gallery of photos, CAD plates and videos
   (only when there are any), then previous / next.
@@ -84,6 +84,8 @@ page plus one page per project.
 - Photos and CAD screenshots go through `npm run import-media` (EXIF/GPS stripped) and
   `npm run images` (AVIF + WebP sizes). Portrait plates share a 3:4 frame, landscape
   plates 4:3, so gallery rows line up.
+- Photos are checked for readable private details before publishing (an IP-address label
+  in the re-identification workstation photo is blurred).
 - Videos go through `npm run import-video`: H.264 MP4, at most 720 px on the short side,
   **no audio and no metadata** (phone videos carry location and background voices). They
   show a poster frame, load nothing until played, never autoplay, and have a caption

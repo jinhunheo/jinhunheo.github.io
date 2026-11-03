@@ -50,7 +50,6 @@ projects:
   - title: Baja SAE Pedalbox
     org: Longhorn Baja Racing
     dates: Sept 2025 – Apr 2026
-    project: baja-pedal-box
     bullets:
       - Spearheaded the design of the throttle pedal assembly using SolidWorks, integrating a custom throttle cable linkage to navigate a rear-engine architecture while preventing mechanical interference with mid-chassis components
       - Optimized pedal arm length to 9in, a 25% reduction from industry standards, meeting competition regulations

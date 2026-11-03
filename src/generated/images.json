@@ -81,6 +81,399 @@
 			}
 		]
 	},
+	"reid-camera-view": {
+		"width": 1800,
+		"height": 2400,
+		"source": "dc4d27180402b66b",
+		"avif": [
+			{
+				"width": 400,
+				"file": "reid-camera-view-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "reid-camera-view-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "reid-camera-view-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "reid-camera-view-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "reid-camera-view-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "reid-camera-view-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "reid-camera-view-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "reid-camera-view-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "reid-camera-view-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "reid-camera-view-1600.webp"
+			}
+		]
+	},
+	"reid-card": {
+		"width": 1800,
+		"height": 1800,
+		"source": "c0a3adabbf9f42b3",
+		"avif": [
+			{
+				"width": 400,
+				"file": "reid-card-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "reid-card-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "reid-card-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "reid-card-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "reid-card-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "reid-card-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "reid-card-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "reid-card-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "reid-card-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "reid-card-1600.webp"
+			}
+		]
+	},
+	"reid-crossing-poster": {
+		"width": 960,
+		"height": 540,
+		"source": "b3ecc397235f5cbd",
+		"avif": [
+			{
+				"width": 400,
+				"file": "reid-crossing-poster-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "reid-crossing-poster-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "reid-crossing-poster-800.avif"
+			},
+			{
+				"width": 960,
+				"file": "reid-crossing-poster-960.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "reid-crossing-poster-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "reid-crossing-poster-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "reid-crossing-poster-800.webp"
+			},
+			{
+				"width": 960,
+				"file": "reid-crossing-poster-960.webp"
+			}
+		]
+	},
+	"reid-enter-leave-poster": {
+		"width": 960,
+		"height": 540,
+		"source": "74fad49876816690",
+		"avif": [
+			{
+				"width": 400,
+				"file": "reid-enter-leave-poster-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "reid-enter-leave-poster-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "reid-enter-leave-poster-800.avif"
+			},
+			{
+				"width": 960,
+				"file": "reid-enter-leave-poster-960.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "reid-enter-leave-poster-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "reid-enter-leave-poster-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "reid-enter-leave-poster-800.webp"
+			},
+			{
+				"width": 960,
+				"file": "reid-enter-leave-poster-960.webp"
+			}
+		]
+	},
+	"reid-leave-view-poster": {
+		"width": 640,
+		"height": 360,
+		"source": "3e030bd878abf9fa",
+		"avif": [
+			{
+				"width": 400,
+				"file": "reid-leave-view-poster-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "reid-leave-view-poster-640.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "reid-leave-view-poster-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "reid-leave-view-poster-640.webp"
+			}
+		]
+	},
+	"reid-robot-side": {
+		"width": 1800,
+		"height": 2400,
+		"source": "8e120c3955413719",
+		"avif": [
+			{
+				"width": 400,
+				"file": "reid-robot-side-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "reid-robot-side-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "reid-robot-side-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "reid-robot-side-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "reid-robot-side-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "reid-robot-side-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "reid-robot-side-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "reid-robot-side-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "reid-robot-side-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "reid-robot-side-1600.webp"
+			}
+		]
+	},
+	"reid-robot": {
+		"width": 1800,
+		"height": 2400,
+		"source": "7d398be3e88b30cc",
+		"avif": [
+			{
+				"width": 400,
+				"file": "reid-robot-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "reid-robot-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "reid-robot-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "reid-robot-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "reid-robot-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "reid-robot-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "reid-robot-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "reid-robot-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "reid-robot-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "reid-robot-1600.webp"
+			}
+		]
+	},
+	"reid-walk-away-poster": {
+		"width": 960,
+		"height": 540,
+		"source": "a74996e006ef812d",
+		"avif": [
+			{
+				"width": 400,
+				"file": "reid-walk-away-poster-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "reid-walk-away-poster-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "reid-walk-away-poster-800.avif"
+			},
+			{
+				"width": 960,
+				"file": "reid-walk-away-poster-960.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "reid-walk-away-poster-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "reid-walk-away-poster-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "reid-walk-away-poster-800.webp"
+			},
+			{
+				"width": 960,
+				"file": "reid-walk-away-poster-960.webp"
+			}
+		]
+	},
+	"reid-workstation": {
+		"width": 1800,
+		"height": 2400,
+		"source": "15a1707ab3fa7e8a",
+		"avif": [
+			{
+				"width": 400,
+				"file": "reid-workstation-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "reid-workstation-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "reid-workstation-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "reid-workstation-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "reid-workstation-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "reid-workstation-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "reid-workstation-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "reid-workstation-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "reid-workstation-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "reid-workstation-1600.webp"
+			}
+		]
+	},
 	"rvl-cad-cable-bridge": {
 		"width": 823,
 		"height": 547,
@@ -639,9 +1032,9 @@
 		]
 	},
 	"rvl-husky-card": {
-		"width": 1200,
-		"height": 900,
-		"source": "0a391e33a5d7a7c3",
+		"width": 1320,
+		"height": 1320,
+		"source": "9a3432e87434ea5d",
 		"avif": [
 			{
 				"width": 400,
@@ -658,6 +1051,10 @@
 			{
 				"width": 1200,
 				"file": "rvl-husky-card-1200.avif"
+			},
+			{
+				"width": 1320,
+				"file": "rvl-husky-card-1320.avif"
 			}
 		],
 		"webp": [
@@ -676,6 +1073,10 @@
 			{
 				"width": 1200,
 				"file": "rvl-husky-card-1200.webp"
+			},
+			{
+				"width": 1320,
+				"file": "rvl-husky-card-1320.webp"
 			}
 		]
 	},
@@ -828,8 +1229,8 @@
 	},
 	"rw-card": {
 		"width": 1800,
-		"height": 1350,
-		"source": "55b4565c580f5166",
+		"height": 1800,
+		"source": "52b31de3fa6cdb45",
 		"avif": [
 			{
 				"width": 400,

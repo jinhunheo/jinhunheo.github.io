@@ -494,7 +494,8 @@ main {
 .card__media {
 	display: block;
 	overflow: hidden;
-	aspect-ratio: 4 / 3;
+	/* Square, so tall machines (robots, testbeds) fit whole. */
+	aspect-ratio: 1;
 	border-radius: var(--radius);
 	background: var(--placeholder);
 }
