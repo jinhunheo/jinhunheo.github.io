@@ -97,15 +97,15 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 					</div>
 				</section>`
 			: ""}
-		${project.figures.length
+		${project.gallery.length
 			? html`<section class="band band--figures" aria-labelledby="gallery">
 					${sectionHead("gallery", "Gallery")}
 					${figures(ctx.content, project)}
 				</section>`
 			: ""}
 		<nav class="pager" aria-label="More projects">
-			${prev ? html`<a class="pager__link pager__link--prev" href="/projects/${prev.slug}/"><span class="label">Previous project</span><span>${prev.register}</span></a>` : html`<span></span>`}
-			${next ? html`<a class="pager__link pager__link--next" href="/projects/${next.slug}/"><span class="label">Next project</span><span>${next.register}</span></a>` : html`<a class="pager__link pager__link--next" href="${PROJECTS}"><span class="label">Back to</span><span>All projects</span></a>`}
+			${prev ? html`<a class="pager__link pager__link--prev" href="/projects/${prev.slug}/"><span class="label">Previous project</span><span>${prev.title}</span></a>` : html`<span></span>`}
+			${next ? html`<a class="pager__link pager__link--next" href="/projects/${next.slug}/"><span class="label">Next project</span><span>${next.title}</span></a>` : html`<a class="pager__link pager__link--next" href="${PROJECTS}"><span class="label">Back to</span><span>All projects</span></a>`}
 		</nav>
 	</article>`;
 
@@ -116,7 +116,7 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 		html: layout(ctx, {
 			seo: {
 				route,
-				title: `${project.register} · ${site.name}`,
+				title: `${project.title} · ${site.name}`,
 				description: project.description,
 				og: `project-${project.slug}`,
 				type: "article",
@@ -129,12 +129,12 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 						url: ctx.url + route,
 						image: `${ctx.url}/og/project-${project.slug}.jpg`,
 						creator: person(ctx),
-						keywords: project.tools.join(", "),
+						keywords: project.skills.join(", "),
 					},
 					breadcrumbs(ctx, [
 						{ name: "Home", route: "/" },
 						{ name: "Projects", route: PROJECTS },
-						{ name: project.register, route },
+						{ name: project.title, route },
 					]),
 				],
 			},

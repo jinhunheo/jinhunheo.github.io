@@ -1,7 +1,11 @@
 // Progressive enhancement only: every page works without this file.
 
+// A slide in a group may have no caption of its own; then the group's shared one applies.
+const captionOf = (plate: HTMLElement): string =>
+	(plate.querySelector("figcaption") ?? plate.closest("[data-carousel]")?.querySelector(".carousel__caption"))?.textContent?.trim() ?? "";
+
 // Image viewer (photos and CAD, not videos): figures become buttons that open the image full-screen,
-// in colour, in a native <dialog>. Arrow keys step through figures.
+// in color, in a native <dialog>. Arrow keys step through figures, including every slide of a group.
 function setupViewer(): void {
 	const plates = [...document.querySelectorAll<HTMLElement>("[data-viewer] .plate:not(.plate--video)")];
 	if (!plates.length || typeof HTMLDialogElement !== "function") return;
@@ -47,7 +51,7 @@ function setupViewer(): void {
 		const source = plate.querySelector("img")!;
 		img.src = fullSize(source);
 		img.alt = source.alt;
-		caption.textContent = plate.querySelector("figcaption")?.textContent?.trim() ?? "";
+		caption.textContent = captionOf(plate);
 		count.textContent = `${current + 1} / ${plates.length}`;
 	};
 
@@ -57,8 +61,7 @@ function setupViewer(): void {
 		const button = document.createElement("button");
 		button.type = "button";
 		button.className = "plate__open";
-		const label = plate.querySelector("figcaption")?.textContent?.trim() ?? "figure";
-		button.setAttribute("aria-label", `Enlarge ${label}`);
+		button.setAttribute("aria-label", `Enlarge ${captionOf(plate) || "figure"}`);
 		button.addEventListener("click", () => {
 			show(index);
 			dialog.showModal();
@@ -76,6 +79,56 @@ function setupViewer(): void {
 		if (event.key === "ArrowRight") show(current + 1);
 		if (event.key === "ArrowLeft") show(current - 1);
 	});
+}
+
+// Image groups in a gallery: the strip already scrolls by touch, trackpad and
+// keyboard (with snapping); this adds the arrows and the dots that show the position.
+function setupCarousels(): void {
+	const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+	for (const carousel of document.querySelectorAll<HTMLElement>("[data-carousel]")) {
+		const track = carousel.querySelector<HTMLElement>(".carousel__track");
+		const nav = carousel.querySelector<HTMLElement>(".carousel__nav");
+		const prev = carousel.querySelector<HTMLButtonElement>(".carousel__btn--prev");
+		const next = carousel.querySelector<HTMLButtonElement>(".carousel__btn--next");
+		if (!track || !nav || !prev || !next) continue;
+		const slides = [...track.children] as HTMLElement[];
+		const dots = [...carousel.querySelectorAll<HTMLElement>(".carousel__dot")];
+		let current = -1;
+
+		// The slide whose left edge is nearest the strip's scroll position.
+		const update = (): void => {
+			const distance = (slide: HTMLElement): number => Math.abs(slide.offsetLeft - track.scrollLeft);
+			const index = slides.reduce((best, slide, i) => (distance(slide) < distance(slides[best]!) ? i : best), 0);
+			if (index === current) return;
+			current = index;
+			dots.forEach((dot, i) => dot.classList.toggle("is-current", i === index));
+			const focused = document.activeElement;
+			prev.hidden = index === 0;
+			next.hidden = index === slides.length - 1;
+			// Keep keyboard focus on the strip's controls when one arrow disappears at an end.
+			if (focused === prev && prev.hidden) next.focus();
+			if (focused === next && next.hidden) prev.focus();
+		};
+		const go = (step: number): void => {
+			const target = slides[Math.min(Math.max(current + step, 0), slides.length - 1)];
+			if (target) track.scrollTo({ left: target.offsetLeft, behavior: smooth ? "smooth" : "auto" });
+		};
+
+		prev.addEventListener("click", () => go(-1));
+		next.addEventListener("click", () => go(1));
+		let frame = 0;
+		track.addEventListener(
+			"scroll",
+			() => {
+				cancelAnimationFrame(frame);
+				frame = requestAnimationFrame(update);
+			},
+			{ passive: true },
+		);
+		carousel.classList.add("is-enhanced");
+		nav.hidden = false;
+		update();
+	}
 }
 
 // Light/dark toggle in the header. The choice is remembered in this browser;
@@ -129,5 +182,6 @@ function setupEmailCopy(): void {
 }
 
 setupTheme();
+setupCarousels();
 setupViewer();
 setupEmailCopy();

@@ -66,7 +66,17 @@ export interface Figure {
 	/** For kind: video, the name of the .mp4 in content/media (from npm run import-video). */
 	video?: string;
 	alt: string;
-	caption: string;
+	/** Required, except on the slides of a group that has its own caption. */
+	caption?: string;
+}
+
+/**
+ * One spot in a project gallery: a single figure, or several slides (photos and
+ * CAD, not videos) swiped through with arrows, optionally sharing one caption.
+ */
+export interface GalleryItem {
+	slides: Figure[];
+	caption?: string;
 }
 
 export interface ProjectDocument {
@@ -78,21 +88,22 @@ export interface ProjectDocument {
 
 export interface Project {
 	slug: string;
+	/** Used everywhere the project is named: home card, project page, pager, search results. */
 	title: string;
-	register: string;
 	category: string;
 	order: number;
 	org: string;
 	role: string;
 	dates: string;
-	tools: string[];
+	skills: string[];
 	/** Search-result description, at most 160 characters. */
 	description: string;
 	summary: string;
 	metrics: Metric[];
 	/** Image for the home page card (from content/media). Leave out to keep an empty space. */
 	cover?: string;
-	figures: Figure[];
+	/** From the `figures` list in the frontmatter. */
+	gallery: GalleryItem[];
 	documents: ProjectDocument[];
 	/** Markdown body. */
 	body: string;
@@ -162,26 +173,35 @@ export function loadContent(root: string): Content {
 		.map((f): Project => {
 			const where = `content/projects/${f}`;
 			const { data, body } = parseFrontmatter(path.join(projectDir, f));
-			requireStrings(where, data, ["title", "register", "category", "org", "role", "dates", "description", "summary"]);
+			requireStrings(where, data, ["title", "category", "org", "role", "dates", "description", "summary"]);
 			if (String(data.description).length > 160) throw new Error(`${where}: description is over 160 characters`);
 			if (!(String(data.category) in site.categories)) {
 				throw new Error(`${where}: category "${String(data.category)}" is not listed in site.yaml categories`);
 			}
-			const figures = (data.figures ?? []) as Figure[];
-			for (const [i, fig] of figures.entries()) {
-				requireStrings(`${where} figure ${i + 1}`, fig as unknown as Record<string, unknown>, ["image", "alt", "caption"]);
-				if (!["photo", "cad", "video"].includes(fig.kind)) throw new Error(`${where} figure ${i + 1}: kind must be photo, cad or video`);
-				if (fig.kind === "video" && !fs.existsSync(path.join(dir, "media", `${fig.video ?? ""}.mp4`))) {
-					throw new Error(`${where} figure ${i + 1}: video "${fig.video ?? ""}" is not in content/media (run npm run import-video)`);
-				}
-			}
+			const entries = (data.figures ?? []) as (Figure | GalleryItem)[];
+			const gallery = entries.map((entry, i): GalleryItem => {
+				const at = `${where} figure ${i + 1}`;
+				const group = "slides" in entry ? entry : undefined;
+				if (group && (!Array.isArray(group.slides) || group.slides.length < 2)) throw new Error(`${at}: "slides" needs at least two images`);
+				const slides = group ? group.slides : [entry as Figure];
+				slides.forEach((fig, j) => {
+					const here = group ? `${at} slide ${j + 1}` : at;
+					requireStrings(here, fig as unknown as Record<string, unknown>, group?.caption ? ["image", "alt"] : ["image", "alt", "caption"]);
+					if (!["photo", "cad", "video"].includes(fig.kind)) throw new Error(`${here}: kind must be photo, cad or video`);
+					if (fig.kind === "video" && group) throw new Error(`${here}: videos can't be slides in a group`);
+					if (fig.kind === "video" && !fs.existsSync(path.join(dir, "media", `${fig.video ?? ""}.mp4`))) {
+						throw new Error(`${here}: video "${fig.video ?? ""}" is not in content/media (run npm run import-video)`);
+					}
+				});
+				return group?.caption ? { slides, caption: group.caption } : { slides };
+			});
 			return {
-				...(data as unknown as Omit<Project, "slug" | "body" | "figures" | "metrics" | "tools">),
+				...(data as unknown as Omit<Project, "slug" | "body" | "gallery" | "metrics" | "skills">),
 				slug: f.replace(/\.md$/, ""),
 				order: Number(data.order ?? 99),
-				tools: (data.tools ?? []) as string[],
+				skills: (data.skills ?? []) as string[],
 				metrics: (data.metrics ?? []) as Metric[],
-				figures,
+				gallery,
 				documents: (data.documents ?? []) as ProjectDocument[],
 				body,
 			};

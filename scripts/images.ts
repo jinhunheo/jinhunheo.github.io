@@ -165,7 +165,8 @@ fs.writeFileSync(ogManifestFile, `${JSON.stringify(ogManifest, null, "\t")}\n`);
 // ---------- 3. Favicons ----------
 
 const favicon = fs.readFileSync(path.join(root, "public", "favicon.svg"));
-await sharp(favicon, { density: 600 }).resize(180, 180).png().toFile(path.join(root, "public", "apple-touch-icon.png"));
+// Square white tile for the home screen: iOS rounds the corners itself.
+await sharp(favicon, { density: 600 }).resize(180, 180).flatten({ background: "#ffffff" }).png().toFile(path.join(root, "public", "apple-touch-icon.png"));
 await sharp(favicon, { density: 300 }).resize(32, 32).png().toFile(path.join(root, "public", "favicon-32.png"));
 
 console.log(`done: ${Object.keys(manifest).length} images, ${Object.keys(ogManifest).length} social previews`);

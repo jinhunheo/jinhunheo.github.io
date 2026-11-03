@@ -34,8 +34,16 @@ describe("content", () => {
 		for (const p of content.projects) assert.ok(content.site.categories[p.category], p.slug);
 	});
 
-	test("every project has a featured metric for the projects list", () => {
-		for (const p of content.projects) assert.ok(p.metrics.some((m) => m.featured), p.slug);
+	test("a project features at most one metric", () => {
+		for (const p of content.projects) assert.ok(p.metrics.filter((m) => m.featured).length <= 1, p.slug);
+	});
+
+	test("every gallery image has a caption, its own or its group's", () => {
+		for (const p of content.projects) {
+			for (const item of p.gallery) {
+				for (const f of item.slides) assert.ok(f.caption ?? item.caption, `${p.slug}: ${f.image}`);
+			}
+		}
 	});
 
 	test("TODOs are found, so a production build can refuse them", () => {
@@ -74,7 +82,7 @@ describe("images", () => {
 
 	test("figures tile the 12-column grid: only the last row may be partial", () => {
 		for (const p of content.projects) {
-			const spans = figureSpans(content, p.figures);
+			const spans = figureSpans(content, p.gallery);
 			let used = 0;
 			spans.forEach((span, i) => {
 				if (used + span > 12) {
@@ -98,7 +106,7 @@ describe("images", () => {
 
 	test("every video figure has its mp4, poster and captions", () => {
 		for (const p of content.projects) {
-			for (const f of p.figures.filter((fig) => fig.kind === "video")) {
+			for (const f of p.gallery.flatMap((item) => item.slides).filter((fig) => fig.kind === "video")) {
 				assert.ok(fs.existsSync(path.join(root, "content", "media", `${f.video}.mp4`)), `${f.video}.mp4`);
 				assert.ok(content.images[f.image], `poster ${f.image}`);
 				assert.ok(`${f.video}.vtt` in content.fileSizes, `captions ${f.video}.vtt`);
@@ -205,6 +213,24 @@ describe("rendered pages", () => {
 			});
 		});
 	}
+});
+
+describe("project pages", () => {
+	test("image groups render as carousels, one slide per image, controls hidden until the script runs", () => {
+		for (const p of content.projects) {
+			const html = pages.find((page) => page.route === `/projects/${p.slug}/`)?.html ?? "";
+			const groups = p.gallery.filter((item) => item.slides.length > 1);
+			assert.equal(all(html, /\sdata-carousel\s/).length, groups.length, p.slug);
+			assert.equal(all(html, /class="carousel__slide"/).length, groups.reduce((n, g) => n + g.slides.length, 0), p.slug);
+			assert.equal(all(html, /<div class="carousel__nav" hidden>/).length, groups.length, p.slug);
+		}
+	});
+
+	test("the title block uses Organization, Title, Duration and Skills", () => {
+		const html = pages.find((page) => page.route.startsWith("/projects/"))?.html ?? "";
+		const labels = all(html, /<dt class="label">([^<]+)<\/dt>/).map((m) => m[1]);
+		assert.deepEqual(labels, ["Type", "Organization", "Title", "Duration", "Skills"]);
+	});
 });
 
 describe("build modes", () => {

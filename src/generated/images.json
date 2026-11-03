@@ -935,8 +935,8 @@
 	},
 	"rvl-enclosure-angle": {
 		"width": 1800,
-		"height": 2400,
-		"source": "6ecf742cdd4da20f",
+		"height": 1350,
+		"source": "25403b2749a798cf",
 		"avif": [
 			{
 				"width": 400,
@@ -984,8 +984,8 @@
 	},
 	"rvl-enclosure-front": {
 		"width": 1800,
-		"height": 2400,
-		"source": "b6539ad216d09170",
+		"height": 1350,
+		"source": "b7dcc5427bb5af33",
 		"avif": [
 			{
 				"width": 400,
@@ -1028,6 +1028,113 @@
 			{
 				"width": 1600,
 				"file": "rvl-enclosure-front-1600.webp"
+			}
+		]
+	},
+	"rvl-extrusion-double": {
+		"width": 715,
+		"height": 536,
+		"source": "982807e5b0ee4d1b",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-extrusion-double-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-extrusion-double-640.avif"
+			},
+			{
+				"width": 715,
+				"file": "rvl-extrusion-double-715.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-extrusion-double-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-extrusion-double-640.webp"
+			},
+			{
+				"width": 715,
+				"file": "rvl-extrusion-double-715.webp"
+			}
+		]
+	},
+	"rvl-extrusion-single": {
+		"width": 600,
+		"height": 450,
+		"source": "791df1bbfbc18bbe",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-extrusion-single-400.avif"
+			},
+			{
+				"width": 600,
+				"file": "rvl-extrusion-single-600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-extrusion-single-400.webp"
+			},
+			{
+				"width": 600,
+				"file": "rvl-extrusion-single-600.webp"
+			}
+		]
+	},
+	"rvl-halowlink": {
+		"width": 2400,
+		"height": 1800,
+		"source": "35de67d4e9f0f15c",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-halowlink-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-halowlink-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-halowlink-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-halowlink-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-halowlink-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-halowlink-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-halowlink-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-halowlink-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-halowlink-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-halowlink-1600.webp"
 			}
 		]
 	},
@@ -1178,6 +1285,55 @@
 			}
 		]
 	},
+	"rvl-imu": {
+		"width": 2400,
+		"height": 1800,
+		"source": "c45996b68089f607",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-imu-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-imu-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-imu-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-imu-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-imu-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-imu-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-imu-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-imu-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-imu-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-imu-1600.webp"
+			}
+		]
+	},
 	"rvl-mount-and-clip": {
 		"width": 1800,
 		"height": 2400,
@@ -1224,6 +1380,96 @@
 			{
 				"width": 1600,
 				"file": "rvl-mount-and-clip-1600.webp"
+			}
+		]
+	},
+	"rvl-smart7-install": {
+		"width": 978,
+		"height": 837,
+		"source": "fead08e03b57bf62",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-smart7-install-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-smart7-install-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-smart7-install-800.avif"
+			},
+			{
+				"width": 978,
+				"file": "rvl-smart7-install-978.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-smart7-install-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-smart7-install-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-smart7-install-800.webp"
+			},
+			{
+				"width": 978,
+				"file": "rvl-smart7-install-978.webp"
+			}
+		]
+	},
+	"rvl-smart7": {
+		"width": 2400,
+		"height": 1800,
+		"source": "a6da8f2b996bcf16",
+		"avif": [
+			{
+				"width": 400,
+				"file": "rvl-smart7-400.avif"
+			},
+			{
+				"width": 640,
+				"file": "rvl-smart7-640.avif"
+			},
+			{
+				"width": 800,
+				"file": "rvl-smart7-800.avif"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-smart7-1200.avif"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-smart7-1600.avif"
+			}
+		],
+		"webp": [
+			{
+				"width": 400,
+				"file": "rvl-smart7-400.webp"
+			},
+			{
+				"width": 640,
+				"file": "rvl-smart7-640.webp"
+			},
+			{
+				"width": 800,
+				"file": "rvl-smart7-800.webp"
+			},
+			{
+				"width": 1200,
+				"file": "rvl-smart7-1200.webp"
+			},
+			{
+				"width": 1600,
+				"file": "rvl-smart7-1600.webp"
 			}
 		]
 	},

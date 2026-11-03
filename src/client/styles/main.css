@@ -166,7 +166,7 @@ main:focus {
 	top: 8px;
 }
 
-/* ---------- Masthead: logo, centred nav, icons and theme toggle ---------- */
+/* ---------- Masthead: logo, centered nav, icons and theme toggle ---------- */
 
 @media (prefers-reduced-motion: no-preference) {
 	html {
@@ -195,17 +195,10 @@ main:focus {
 }
 
 .logo {
-	width: 32px;
-	height: 32px;
+	width: 34px;
+	height: 29px;
 	flex: none;
-}
-
-.logo__tile {
-	fill: var(--text);
-}
-
-.logo__letters {
-	stroke: var(--bg);
+	fill: currentColor;
 }
 
 .masthead__name {
@@ -822,8 +815,9 @@ main {
 	margin: 0;
 }
 
-.figures > .plate {
+.figures > * {
 	grid-column: 1 / -1;
+	min-width: 0;
 }
 
 @media (min-width: 640px) {
@@ -920,6 +914,120 @@ main {
 
 .plate__open:focus-visible {
 	outline-offset: -4px;
+}
+
+/* Image groups: a scroll-snap strip of plates, with arrows and dots laid over
+   the image frame once the script runs. Without it the strip still scrolls. */
+.carousel {
+	position: relative;
+}
+
+.carousel__track {
+	position: relative;
+	display: flex;
+	gap: 12px;
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: thin;
+	border-radius: var(--radius);
+}
+
+.carousel.is-enhanced .carousel__track {
+	scrollbar-width: none;
+}
+
+.carousel.is-enhanced .carousel__track::-webkit-scrollbar {
+	display: none;
+}
+
+.carousel__slide {
+	flex: 0 0 100%;
+	min-width: 0;
+	scroll-snap-align: start;
+	scroll-snap-stop: always;
+}
+
+/* Same size as the image frame, so the controls never cover a caption. */
+.carousel__nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	pointer-events: none;
+}
+
+.carousel--portrait .carousel__nav {
+	aspect-ratio: 3 / 4;
+}
+
+.carousel__btn {
+	position: absolute;
+	top: 50%;
+	display: grid;
+	place-items: center;
+	width: 36px;
+	height: 36px;
+	margin-top: -18px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: rgb(255 255 255 / 0.92);
+	color: #1f1f1f;
+	box-shadow: 0 1px 4px rgb(0 0 0 / 0.3);
+	cursor: pointer;
+	pointer-events: auto;
+	transition: background-color 0.2s;
+}
+
+.carousel__btn:hover {
+	background: #ffffff;
+}
+
+.carousel__btn[hidden] {
+	display: none;
+}
+
+.carousel__btn--prev {
+	left: 10px;
+}
+
+.carousel__btn--next {
+	right: 10px;
+}
+
+.carousel__btn svg {
+	width: 20px;
+	height: 20px;
+}
+
+.carousel__dots {
+	position: absolute;
+	left: 50%;
+	bottom: 10px;
+	display: flex;
+	gap: 6px;
+	padding: 6px 8px;
+	border-radius: 999px;
+	background: rgb(0 0 0 / 0.38);
+	transform: translateX(-50%);
+}
+
+.carousel__dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: rgb(255 255 255 / 0.5);
+	transition: background-color 0.2s;
+}
+
+.carousel__dot.is-current {
+	background: #ffffff;
+}
+
+.carousel__caption {
+	margin: 0;
 }
 
 .pager {
@@ -1118,8 +1226,9 @@ main {
 			animation-range: entry 20% cover 35%;
 		}
 
+		/* Not the plates inside a group: their nearest scroller is the sideways strip. */
 		.card,
-		.plate {
+		.figures > * {
 			animation: lift linear both;
 			animation-timeline: view();
 			animation-range: entry 0% entry 60%;

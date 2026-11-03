@@ -5,18 +5,18 @@
 		"title": "Jinhun Heo"
 	},
 	"project-robotic-vision-lab": {
-		"key": "67ddb71d6cf953c4",
+		"key": "8f549e4e59befaaf",
 		"label": "Projects",
-		"title": "Sensor mounts and enclosures for a field robot"
+		"title": "Hardware for a Husky UGV"
 	},
 	"project-reaction-wheel": {
-		"key": "3c3bfd928c7b5508",
+		"key": "ab99c689e32cdb86",
 		"label": "Projects",
-		"title": "Reaction wheel platform with vision tracking"
+		"title": "Reaction wheel platform"
 	},
 	"project-human-re-identification": {
-		"key": "3c876f520684f9c3",
+		"key": "1a117ed9bd17cfda",
 		"label": "Projects",
-		"title": "Human re-identification on a humanoid robot"
+		"title": "Human re-identification"
 	}
 }

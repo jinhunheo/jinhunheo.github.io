@@ -10,7 +10,7 @@ Workers Free) with the `cf` CLI. Design direction: [DESIGN.md](DESIGN.md).
 | `content/site.yaml` | Name, contact details, interests, nav, URLs |
 | `content/pages.yaml` | Copy and search descriptions for each page |
 | `content/resume.yaml` | Resume data (education, skills) used in the search-engine profile; no page shows it now |
-| `content/projects/*.md` | One file per project: frontmatter (title block, metrics, figures) + write-up |
+| `content/projects/*.md` | One file per project: frontmatter (title block, metrics, gallery) + write-up |
 | `content/media/` | Source photos and CAD screenshots (metadata stripped) |
 | `content/files/` | Downloads (PDFs) and video captions, served at `/files/…` |
 | `src/site/` | Templates that render the content to HTML (no copy in here) |
@@ -38,6 +38,12 @@ npm run images
 Then reference it in the project's Markdown frontmatter: as a gallery figure
 (`image: project-part-name`), and/or as the home page card image (`cover: project-part-name`).
 Projects without a `cover` show an empty rounded space on the home page.
+To put several images in one gallery spot (swiped through with arrows), list them under
+`slides:` instead of `image:`. Each slide has its own `caption`, or the group gets one
+shared `caption` (see the enclosure group in `content/projects/robotic-vision-lab.md`).
+The group's frame follows its first slide, so crop photos in a group to match it.
+Use `kind: cad` for anything on a white background (CAD, drawings, product images).
+
 Add a video (needs ffmpeg: `winget install Gyan.FFmpeg`). It becomes a silent MP4 with
 no metadata, plus a poster frame:
 

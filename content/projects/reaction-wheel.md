@@ -1,16 +1,15 @@
 ---
-title: Reaction wheel platform with vision tracking
-register: Reaction wheel platform
+title: Reaction wheel platform
 category: research
 order: 2
 org: Freshman Research Initiative, Space & Robotics Stream
 role: Student researcher
 dates: Jan – May 2026
-tools: [Onshape, Raspberry Pi, PID control, OpenCV, Flask, H-bridge + PWM]
+skills: [Onshape, Raspberry Pi, PID control, OpenCV, Flask, H-bridge + PWM]
 description: "A reaction wheel platform: PID control that stops a hand spin in 0.5 s, OpenCV target tracking under shaking, and a lighter motor support."
 summary: >-
   A platform that turns itself with a reaction wheel. I tuned its control loops to stop
-  a hand spin within 0.5 s and to keep tracking a coloured target while the target is
+  a hand spin within 0.5 s and to keep tracking a colored target while the target is
   shaken, and designed its motor support.
 metrics:
   - value: "0.5"
@@ -62,7 +61,7 @@ figures:
     caption: The monitoring interface's camera view, with the crosshair and target overlay.
 ---
 
-## How it works
+## Project overview
 
 A reaction wheel is a flywheel driven by a motor. Speed the wheel up one way and the
 platform it is mounted on turns the other way; satellites use the same principle to
@@ -74,7 +73,7 @@ stream of UT Austin's Freshman Research Initiative.
 
 - A closed-loop PID controller brings a hand-spun platform to a stop within 0.5 s.
 - A dual-loop PID architecture takes target positions from real-time OpenCV tracking,
-  and kept 89% continuous tracking on coloured targets under violent shaking.
+  and kept 89% continuous tracking on colored targets under violent shaking.
 - A Flask web interface streams the live camera feed with a crosshair and bounding-box
   overlay, so tracking can be checked by eye while it runs.
 
@@ -82,7 +81,7 @@ stream of UT Austin's Freshman Research Initiative.
 
 - I designed the motor support in Onshape: a hollow cylinder with four pillars instead
   of walls, so wires stay easy to reach, bolted to the platform and bearing instead of
-  relying on a friction fit. The weight-optimised design cut battery consumption by 11%
+  relying on a friction fit. The weight-optimized design cut battery consumption by 11%
   and tipping by 29%.
 - An H-bridge gives bidirectional motor control with PWM duty-cycle modulation.
 - Wire gauges sized from calculated peak current loads, to limit heating and keep the

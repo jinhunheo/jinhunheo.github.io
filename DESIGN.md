@@ -15,17 +15,17 @@ Two references set the tone:
 - ramitkrishnan.com: a friendly greeting beside a round portrait, then projects as
   rows of image on the left and title, short text and a "Learn more" button on the right.
 
-What survives from DATUM, kept small: project **title blocks** (type, organisation, role,
-dates, tools) and results drawn as **dimension lines** with arrowheads on project pages.
+What survives from DATUM, kept small: project **title blocks** (type, organization, title,
+duration, skills) and results drawn as **dimension lines** with arrowheads on project pages.
 They are the engineering accent; everything else stays plain.
 
 ## Logo
 
-A **JH monogram**: geometric J and H knocked out of a rounded square (radius 9 on a 32
-grid, matching the site's rounded corners), strokes 2.6 with square ends. It inverts
-with the theme (dark tile on white, light tile on dark). The same drawing is the favicon.
+Jinhun's own **JH logo** (the "Website logo" artwork), traced to SVG paths so it stays
+sharp at any size and takes the text color: dark on white, light on dark. The favicon is
+the same drawing in black on a white rounded tile.
 
-## Colour and themes
+## Color and themes
 
 White by default, dark on request. The header toggle (moon / sun) switches themes;
 the choice is saved in the visitor's browser and applied before first paint by a tiny
@@ -42,7 +42,7 @@ inline script, allowed by hash in the Content-Security-Policy.
 | `--plate`      | `#f4f5f6` | `#e9e8e3` | CAD screenshot plates |
 | `--placeholder`| `#eceef0` | `#1d1d20` | empty image spaces |
 
-Photos are always in full colour. CAD screenshots sit on plates; their white
+Photos are always in full color. CAD screenshots sit on plates; their white
 viewport background blends into the plate. The full-screen image viewer is always dark.
 
 ## Type
@@ -58,16 +58,17 @@ Sizes (fluid): greeting 36 → 64 px · page titles 40 → 72 px · project titl
 ## Pages
 
 - **Header** on every page: JH logo (with the name on wider screens) on the left,
-  **Projects** centred (it scrolls to the projects on the home page), and LinkedIn, mail
+  **Projects** centered (it scrolls to the projects on the home page), and LinkedIn, mail
   and the light/dark toggle on the right. The mail icon copies the address (with a short
   "Copied" note) and opens the visitor's mail app.
 - **Home**: round headshot beside "Hey, I'm Jinhun." and the bio (Jinhun's own words,
   verbatim). Below it, `#projects`: every project as a row with a square card image
   (cropped to show the whole machine; an empty rounded space until one is added), meta
   line, title, summary, "Learn more" and any report.
-- **Project page**: title, summary, report button (if any), title block, dimensioned
-  results, write-up, a Report section, then a gallery of photos, CAD plates and videos
-  (only when there are any), then previous / next.
+- **Project page**: the same title and summary as its home card, report button (if any),
+  title block, dimensioned results (if any), write-up ("Project overview", then "My role"
+  where the work was Jinhun's own), a Report section, then a gallery of photos, CAD plates
+  and videos (only when there are any), then previous / next.
 - **Footer**: "© Jinhun Heo 2026".
 
 Rounds 2–3 removed the Contact, Resume and Projects-list pages; the site is the home
@@ -75,7 +76,7 @@ page plus one page per project.
 
 ### Phone, designed on purpose
 
-- The same header fits a 375 px screen: logo mark, centred Projects, three 40 px icons.
+- The same header fits a 375 px screen: logo mark, centered Projects, three 40 px icons.
 - Home stacks portrait, greeting, bio, then project rows with the image on top.
 - Title blocks become a two-column grid; tap targets are at least 40 px.
 
@@ -84,8 +85,15 @@ page plus one page per project.
 - Photos and CAD screenshots go through `npm run import-media` (EXIF/GPS stripped) and
   `npm run images` (AVIF + WebP sizes). Portrait plates share a 3:4 frame, landscape
   plates 4:3, so gallery rows line up.
-- Photos are checked for readable private details before publishing (an IP-address label
-  in the re-identification workstation photo is blurred).
+- Photos are checked for readable private details before publishing (blurred so far: an
+  IP-address label in the re-identification workstation photo, and the Wi-Fi password and
+  MAC-address sticker on the SMART7 antenna).
+- A gallery spot can hold a **group** of images swiped through with arrows and dots, like
+  a social media carousel. The group's frame follows its first slide; photos in a group are
+  cropped to that frame on import, CAD and drawings sit on the plate. Each slide has its
+  own caption (it moves with the image), or the group shares one underneath.
+- Images that aren't Jinhun's own (a manufacturer drawing, product images) say so in
+  their captions.
 - Videos go through `npm run import-video`: H.264 MP4, at most 720 px on the short side,
   **no audio and no metadata** (phone videos carry location and background voices). They
   show a poster frame, load nothing until played, never autoplay, and have a caption
@@ -103,21 +111,22 @@ all of it off.
 ## JavaScript
 
 No framework (nothing here benefits from React). One small vanilla module, all
-progressive enhancement: theme toggle, image viewer for photos and CAD (dialog with arrow
-keys, Escape and focus return), and the header email copy. Every page is complete HTML without it.
+progressive enhancement: theme toggle, arrows and dots for image groups (the strip itself
+scrolls and snaps without it), image viewer for photos and CAD (dialog with arrow keys,
+Escape and focus return), and the header email copy. Every page is complete HTML without it.
 
 ## Content rules
 
 - All words and data live in `content/` (YAML + Markdown). Templates hold only
   structural labels ("Type", "Role", "Gallery", "Learn more" comes from content).
-- Copy is plain, first person and specific. No invented facts.
+- Copy is plain, first person and specific, in American English. No invented facts.
 - A value starting with `TODO:` blocks the production build; none are shown on pages.
 
 ## Accessibility
 
 One `h1` per page, no skipped heading levels, landmarks, skip link, visible focus ring
 in `--accent`, alt text on every meaningful image (home card images are decorative
-duplicates of their titles), labelled icon buttons, contrast ≥ 4.5:1 in both themes.
+duplicates of their titles), labeled icon buttons, contrast ≥ 4.5:1 in both themes.
 
 ## Do not
 
