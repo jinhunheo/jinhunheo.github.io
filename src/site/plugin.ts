@@ -7,8 +7,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { normalizePath, type Plugin } from "vite";
-import { buildSite, siteMode, type BuiltSite } from "./build.ts";
+import { buildSite, siteTarget, type BuiltSite } from "./build.ts";
 import type { SiteMode } from "./content.ts";
+import type { Host } from "./seo.ts";
 
 /** TODO warnings already printed; Vite may load the config more than once per build. */
 const reported = new Set<string>();
@@ -16,10 +17,11 @@ const reported = new Set<string>();
 export function sitePlugin(): Plugin {
 	let root = process.cwd();
 	let mode: SiteMode = "development";
+	let host: Host = "cloudflare";
 	let built: BuiltSite | undefined;
 	const pageById = new Map<string, string>();
 
-	const render = (): BuiltSite => buildSite({ root, mode });
+	const render = (): BuiltSite => buildSite({ root, mode, host });
 
 	return {
 		name: "datum:site",
@@ -27,7 +29,7 @@ export function sitePlugin(): Plugin {
 
 		config(config, env) {
 			root = path.resolve(config.root ?? process.cwd());
-			mode = siteMode(env.mode);
+			({ mode, host } = siteTarget(env.mode));
 			if (env.command !== "build") return;
 			built = render();
 			for (const t of built.todos) {

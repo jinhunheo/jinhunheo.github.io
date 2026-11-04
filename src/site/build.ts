@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { findTodos, loadContent, siteUrl, type Content, type SiteMode, type Todo } from "./content.ts";
 import { home, notFoundPage, projectPage, type PageOut } from "./pages.ts";
-import { headers, robots, sitemap, type RenderContext } from "./seo.ts";
+import { headers, robots, sitemap, type Host, type RenderContext } from "./seo.ts";
 
 export interface ExtraFile {
 	fileName: string;
@@ -15,9 +15,15 @@ export interface BuiltSite {
 	todos: Todo[];
 }
 
-export function siteMode(viteMode: string): SiteMode {
-	if (viteMode === "development" || viteMode === "staging" || viteMode === "production") return viteMode;
-	throw new Error(`Unknown mode "${viteMode}". Use development, staging or production.`);
+/**
+ * Vite mode -> what to render and where it is published. "pages" is the
+ * production site on GitHub Pages (free, <user>.github.io); the other modes are
+ * local dev and Cloudflare Workers (cf).
+ */
+export function siteTarget(viteMode: string): { mode: SiteMode; host: Host } {
+	if (viteMode === "pages") return { mode: "production", host: "github-pages" };
+	if (viteMode === "development" || viteMode === "staging" || viteMode === "production") return { mode: viteMode, host: "cloudflare" };
+	throw new Error(`Unknown mode "${viteMode}". Use development, staging, production or pages.`);
 }
 
 export function renderPages(ctx: RenderContext): PageOut[] {
@@ -28,7 +34,8 @@ export function renderPages(ctx: RenderContext): PageOut[] {
 	];
 }
 
-export function buildSite(o: { root: string; mode: SiteMode; date?: Date; content?: Content }): BuiltSite {
+export function buildSite(o: { root: string; mode: SiteMode; host?: Host; date?: Date; content?: Content }): BuiltSite {
+	const host = o.host ?? "cloudflare";
 	const content = o.content ?? loadContent(o.root);
 	const todos = findTodos(content);
 	if (o.mode === "production" && todos.length) {
@@ -37,13 +44,14 @@ export function buildSite(o: { root: string; mode: SiteMode; date?: Date; conten
 				todos.map((t) => `  - ${t.where}: ${t.text}`).join("\n"),
 		);
 	}
-	const ctx: RenderContext = { content, mode: o.mode, url: siteUrl(content, o.mode), date: o.date ?? new Date() };
+	const ctx: RenderContext = { content, mode: o.mode, host, url: siteUrl(content, o.mode), date: o.date ?? new Date() };
 	const pages = renderPages(ctx);
 	const files: ExtraFile[] = [
 		{ fileName: "sitemap.xml", source: sitemap(ctx, pages.filter((p) => p.route !== "/404").map((p) => p.route)) },
 		{ fileName: "robots.txt", source: robots(ctx) },
-		{ fileName: "_headers", source: headers(ctx) },
 	];
+	// GitHub Pages can't set response headers; its pages carry the CSP as a meta tag instead.
+	if (host === "cloudflare") files.push({ fileName: "_headers", source: headers(ctx) });
 	const filesDir = path.join(o.root, "content", "files");
 	for (const name of fs.readdirSync(filesDir)) {
 		files.push({ fileName: `files/${name}`, source: fs.readFileSync(path.join(filesDir, name)) });

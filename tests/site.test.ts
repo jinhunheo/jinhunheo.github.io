@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { describe, test } from "node:test";
-import { buildSite, renderPages } from "../src/site/build.ts";
+import { buildSite, renderPages, siteTarget } from "../src/site/build.ts";
 import { figureSpans } from "../src/site/components.ts";
 import { findTodos, loadContent, type Content } from "../src/site/content.ts";
 import type { RenderContext } from "../src/site/seo.ts";
@@ -22,6 +22,13 @@ const attr = (tag: string, name: string): string | undefined => new RegExp(`\\s$
 function launchReady(): Content {
 	const c = structuredClone(content);
 	c.site.urls.production = "https://example.com";
+	return c;
+}
+
+/** Content with the launch address still to be filled in. */
+function withTodo(): Content {
+	const c = structuredClone(content);
+	c.site.urls.production = "TODO: GitHub Pages address";
 	return c;
 }
 
@@ -47,7 +54,7 @@ describe("content", () => {
 	});
 
 	test("TODOs are found, so a production build can refuse them", () => {
-		const todos = findTodos(content);
+		const todos = findTodos(withTodo());
 		assert.ok(todos.some((t) => t.where === "site.yaml.urls.production"));
 		assert.equal(findTodos(launchReady()).length, 0);
 	});
@@ -234,6 +241,25 @@ describe("project pages", () => {
 });
 
 describe("build modes", () => {
+	test("each Vite mode maps to what is rendered and where it is published", () => {
+		assert.deepEqual(siteTarget("pages"), { mode: "production", host: "github-pages" });
+		assert.deepEqual(siteTarget("production"), { mode: "production", host: "cloudflare" });
+		assert.deepEqual(siteTarget("staging"), { mode: "staging", host: "cloudflare" });
+		assert.deepEqual(siteTarget("development"), { mode: "development", host: "cloudflare" });
+		assert.throws(() => siteTarget("preview"), /Unknown mode "preview"/);
+	});
+
+	test("Cloudflare output sends the CSP as a header, not a meta tag", () => {
+		const site = buildSite({ root, mode: "staging", date });
+		for (const page of site.pages) assert.doesNotMatch(page.html, /http-equiv="Content-Security-Policy"/, page.route);
+		const headers = site.files.find((f) => f.fileName === "_headers")?.source as string;
+		assert.match(headers, /frame-ancestors 'none'/);
+	});
+
+	test("GitHub Pages refuses to build while the site address is a TODO", () => {
+		assert.throws(() => buildSite({ root, mode: "production", host: "github-pages", date, content: withTodo() }), /Production build blocked/);
+	});
+
 	test("staging output keeps search engines out", () => {
 		const site = buildSite({ root, mode: "staging", date });
 		const headers = site.files.find((f) => f.fileName === "_headers")?.source as string;
@@ -245,7 +271,20 @@ describe("build modes", () => {
 	});
 
 	test("production refuses to build while TODOs remain", () => {
-		assert.throws(() => buildSite({ root, mode: "production", date }), /Production build blocked/);
+		assert.throws(() => buildSite({ root, mode: "production", date, content: withTodo() }), /Production build blocked/);
+	});
+
+	test("GitHub Pages output puts the CSP in each page and has no _headers file", () => {
+		const site = buildSite({ root, mode: "production", host: "github-pages", date, content: launchReady() });
+		assert.equal(site.files.some((f) => f.fileName === "_headers"), false);
+		for (const page of site.pages) {
+			const head = /<head>([\s\S]*?)<\/head>/.exec(page.html)?.[1] ?? "";
+			const csp = head.indexOf('<meta http-equiv="Content-Security-Policy"');
+			assert.ok(csp > 0 && csp < head.indexOf("<script>"), `${page.route}: the CSP must come before the inline theme script`);
+			assert.ok(head.includes(THEME_SCRIPT_HASH), page.route);
+			assert.doesNotMatch(head, /frame-ancestors/, "browsers ignore frame-ancestors in a meta tag");
+		}
+		assert.doesNotMatch(site.pages.find((p) => p.route === "/")?.html ?? "", /noindex/);
 	});
 
 	test("production output is indexable once TODOs are done", () => {

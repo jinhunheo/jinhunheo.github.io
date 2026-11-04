@@ -2,9 +2,14 @@ import type { Content, SiteMode } from "./content.ts";
 import { html, raw, type Raw } from "./html.ts";
 import { THEME_SCRIPT_HASH } from "./theme.ts";
 
+/** Where the built site is served from. */
+export type Host = "cloudflare" | "github-pages";
+
 export interface RenderContext {
 	content: Content;
 	mode: SiteMode;
+	/** Defaults to Cloudflare, which sends security headers from the _headers file. */
+	host?: Host;
 	/** Absolute origin for canonical links, e.g. https://example.com */
 	url: string;
 	date: Date;
@@ -107,24 +112,35 @@ export function robots(ctx: RenderContext): string {
 	return `User-agent: *\nAllow: /\n\nSitemap: ${ctx.url}/sitemap.xml\n`;
 }
 
+const CSP = [
+	"default-src 'self'",
+	"img-src 'self' data:",
+	"font-src 'self'",
+	"style-src 'self'",
+	`script-src 'self' '${THEME_SCRIPT_HASH}'`,
+	"connect-src 'self'",
+	"object-src 'none'",
+	"base-uri 'self'",
+	"form-action 'none'",
+	"frame-ancestors 'none'",
+	"upgrade-insecure-requests",
+];
+
+/**
+ * The same policy as a <meta> tag, for hosts without custom headers (GitHub
+ * Pages). Browsers ignore frame-ancestors in a meta tag, so it is left out.
+ */
+export function cspMeta(ctx: RenderContext): Raw {
+	if (ctx.host !== "github-pages") return raw("");
+	const policy = CSP.filter((d) => !d.startsWith("frame-ancestors")).join("; ");
+	return html`<meta http-equiv="Content-Security-Policy" content="${policy}">`;
+}
+
 /** Workers static-assets `_headers` file. */
 export function headers(ctx: RenderContext): string {
-	const csp = [
-		"default-src 'self'",
-		"img-src 'self' data:",
-		"font-src 'self'",
-		"style-src 'self'",
-		`script-src 'self' '${THEME_SCRIPT_HASH}'`,
-		"connect-src 'self'",
-		"object-src 'none'",
-		"base-uri 'self'",
-		"form-action 'none'",
-		"frame-ancestors 'none'",
-		"upgrade-insecure-requests",
-	].join("; ");
 	const all = [
 		"/*",
-		`  Content-Security-Policy: ${csp}`,
+		`  Content-Security-Policy: ${CSP.join("; ")}`,
 		"  X-Content-Type-Options: nosniff",
 		"  Referrer-Policy: strict-origin-when-cross-origin",
 		"  Permissions-Policy: camera=(), microphone=(), geolocation=()",

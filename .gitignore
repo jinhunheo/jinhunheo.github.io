@@ -1,7 +1,8 @@
 node_modules/
 
-# cf build output, generated types and local dev state
+# Build output: cf (Cloudflare) and npm run build:pages (GitHub Pages)
 .cloudflare/
+dist/
 
 # Secrets and local credentials: never commit
 .env*

@@ -1,6 +1,6 @@
 import { logoMark } from "./components.ts";
 import { html, raw, type Raw } from "./html.ts";
-import { headMeta, type PageSeo, type RenderContext } from "./seo.ts";
+import { cspMeta, headMeta, type PageSeo, type RenderContext } from "./seo.ts";
 import { THEME_SCRIPT } from "./theme.ts";
 
 const themeToggle = html`<button class="theme-toggle icon-btn" type="button" aria-pressed="false" hidden>
@@ -22,6 +22,7 @@ export function layout(ctx: RenderContext, o: { seo: PageSeo; body: Raw; bodyCla
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	${cspMeta(ctx)}
 	<script>${raw(THEME_SCRIPT)}</script>
 	<meta name="color-scheme" content="light dark">
 	<meta name="theme-color" content="#ffffff">

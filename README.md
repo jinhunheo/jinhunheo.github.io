@@ -1,7 +1,9 @@
 # Jinhun Heo, portfolio
 
-Static site built with Vite and deployed to Cloudflare Workers (static assets only,
-Workers Free) with the `cf` CLI. Design direction: [DESIGN.md](DESIGN.md).
+Static site built with Vite. The public site is published free on GitHub Pages
+(`https://<github-username>.github.io`) by a GitHub Actions workflow; a noindex staging
+copy can still go to Cloudflare Workers (Workers Free) with the `cf` CLI.
+Design direction: [DESIGN.md](DESIGN.md).
 
 ## Where things live
 
@@ -17,9 +19,11 @@ Workers Free) with the `cf` CLI. Design direction: [DESIGN.md](DESIGN.md).
 | `src/client/` | CSS, fonts and the small progressive-enhancement script |
 | `src/generated/` | Image sizes and manifests from `npm run images` (committed) |
 | `public/` | Favicons and social preview images, served as-is |
+| `.github/workflows/pages.yml` | Builds and publishes the site to GitHub Pages on every push to `main` |
 
-Anything in `content/` that starts with `TODO:` blocks `npm run build` (production) until
-it's filled in. Today that is only the production domain in `content/site.yaml`.
+Anything in `content/` that starts with `TODO:` blocks the production builds
+(`npm run build:pages` and `npm run build`) until it's filled in. Today that is only the
+GitHub Pages address (`urls.production`) in `content/site.yaml`.
 
 ## Common tasks
 
@@ -61,12 +65,37 @@ Add a PDF report to a project: copy it into `content/files/` and list it under
 
 Run `npm run images` again after renaming a page title, so its social preview matches.
 
-## Checks and deploys
+## Publishing on GitHub Pages
+
+The workflow in `.github/workflows/pages.yml` type checks, tests, runs
+`npm run build:pages` and publishes `dist/` on every push to `main` (or by hand from the
+repository's Actions tab). One-time setup:
+
+1. Name the GitHub repository `<github-username>.github.io`. The site's links are
+   absolute, so it must be served from the root of that address, not a subpath.
+2. In `content/site.yaml`, set `urls.production` to `https://<github-username>.github.io`.
+   The workflow stops if this doesn't match the address the repository publishes to.
+3. In the repository's Settings → Pages, set "Source" to "GitHub Actions".
+4. Push to `main`.
+
+Build and check the Pages version locally first (needs step 2 done):
+
+```sh
+npm run build:pages         # static site in dist/, no Cloudflare plugin
+npm run preview:pages       # serves dist/ at http://localhost:4173
+```
+
+GitHub Pages can't send custom response headers, so in this build there is no `_headers`
+file: each page carries its Content-Security-Policy as a `<meta>` tag instead (without
+`frame-ancestors`, which browsers ignore there). The other headers in `_headers`
+(`nosniff`, `Referrer-Policy`, `Permissions-Policy`) only apply on Cloudflare.
+
+## Cloudflare staging and checks
 
 ```sh
 npm run check               # type check + tests + cf deploy --dry-run (staging)
 npm run deploy:staging      # jinhun-heo-portfolio-staging on workers.dev (noindex)
-npm run deploy              # production: only after approval, with a domain set
+npm run deploy              # Cloudflare production: not used while the site is on GitHub Pages
 ```
 
 `cf build` runs `vite build` directly, not the package.json scripts, so type checks and

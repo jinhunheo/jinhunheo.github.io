@@ -16,7 +16,9 @@ location:
 
 urls:
   # Used for canonical links, the sitemap and social preview images.
-  production: "TODO: production domain, for example https://jinhunheo.com"
+  # production is the free GitHub Pages address, https://<github-username>.github.io
+  # (the publish workflow checks that it matches the repository).
+  production: "TODO: GitHub Pages address, https://<github-username>.github.io"
   staging: https://jinhun-heo-portfolio-staging.SUBDOMAIN.workers.dev
 
 contact:
