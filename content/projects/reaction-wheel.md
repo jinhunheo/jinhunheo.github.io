@@ -1,30 +1,22 @@
 ---
-title: Reaction wheel platform
+title: Reaction wheel testbed
 category: research
 order: 2
 org: Freshman Research Initiative, Space & Robotics Stream
 role: Student researcher
 dates: Jan – May 2026
 skills: [Onshape, Raspberry Pi, PID control, OpenCV, Flask, H-bridge + PWM]
-description: "A reaction wheel platform: PID control that stops a hand spin in 0.5 s, OpenCV target tracking under shaking, and a lighter motor support."
+description: "A reaction wheel testbed that stabilizes a rotating platform, stopping a hand spin within 0.5 s, and autonomously tracks a colored target."
 summary: >-
-  A platform that turns itself with a reaction wheel. I tuned its control loops to stop
-  a hand spin within 0.5 s and to keep tracking a colored target while the target is
-  shaken, and designed its motor support.
+  A semester-long project where I designed, manufactured, wired and programmed a
+  reaction wheel testbed that uses the conservation of angular momentum to stabilize a
+  rotating platform and autonomously track a colored object. In the real world, the
+  same idea is used to control the orientation of a spacecraft.
 metrics:
   - value: "0.5"
     unit: s
     label: to stop a hand-spun platform
     featured: true
-  - value: "89"
-    unit: "%"
-    label: continuous tracking of a shaking target
-  - value: "11"
-    unit: "%"
-    label: lower battery consumption
-  - value: "29"
-    unit: "%"
-    label: less tipping
 cover: rw-card
 documents:
   - file: Reaction-Wheel-Final-Report.pdf
@@ -36,7 +28,7 @@ figures:
   - image: rw-platform
     kind: photo
     alt: The reaction wheel testbed on a table, with a purple wheel ringed with bolts on top, a motor inside a white pillar support, a Raspberry Pi, battery and toggle switch on the platform, and a round white base.
-    caption: The finished testbed. Bolts around the wheel's rim add inertia.
+    caption: Reaction wheel testbed. Bolts around the wheel's rim add inertia.
   - video: rw-disturbance
     image: rw-disturbance-poster
     kind: video
@@ -63,26 +55,37 @@ figures:
 
 ## Project overview
 
-A reaction wheel is a flywheel driven by a motor. Speed the wheel up one way and the
-platform it is mounted on turns the other way; satellites use the same principle to
-point themselves. Our team of four built a testbed that uses it to hold still against
-pushes and to turn toward a green target its camera sees, in the Space & Robotics
-stream of UT Austin's Freshman Research Initiative.
+A reaction wheel is a flywheel driven by a motor. When the motor spins the wheel one
+way, the platform it is mounted on turns the other way, because angular momentum is
+conserved. Satellites use the same principle to change their orientation. Our team of
+four built a testbed around it in the Space & Robotics stream of UT Austin's Freshman
+Research Initiative.
 
-## Control and tracking
+To show that the testbed can turn to exactly where we want it, and get there quickly,
+we demonstrated that it accurately tracks an optical target and rejects outside
+disturbances, coming to a stop within seconds.
 
-- A closed-loop PID controller brings a hand-spun platform to a stop within 0.5 s.
-- A dual-loop PID architecture takes target positions from real-time OpenCV tracking,
-  and kept 89% continuous tracking on colored targets under violent shaking.
-- A Flask web interface streams the live camera feed with a crosshair and bounding-box
-  overlay, so tracking can be checked by eye while it runs.
+## My role
 
-## Hardware and power
+My contribution covered every part of the engineering: the hardware, the wiring, and
+the programming and control. Safety was a goal throughout, so that no circuit could
+short and the 3D-printed parts connecting the systems wouldn't wear or break. I also
+wanted the code and PID controller to run smoothly, without jerky motions or
+overshoot.
 
-- I designed the motor support in Onshape: a hollow cylinder with four pillars instead
-  of walls, so wires stay easy to reach, bolted to the platform and bearing instead of
-  relying on a friction fit. The weight-optimized design cut battery consumption by 11%
-  and tipping by 29%.
-- An H-bridge gives bidirectional motor control with PWM duty-cycle modulation.
-- Wire gauges sized from calculated peak current loads, to limit heating and keep the
-  power system efficient.
+**Hardware.** I designed the motor housing in Onshape with four pillars instead of
+solid walls, so the wiring stays easy to reach for troubleshooting and reconfiguration.
+The motor attaches at the top using its own screw holes, instead of relying on a
+friction fit at the bottom, which would be less sturdy.
+
+**Wiring and power.** I designed the overall system circuitry, with a fuse at the start
+for safety and an H-bridge for bidirectional motor control using PWM. I also brought
+the system together physically, soldering wires to the electronics and heat-shrinking
+exposed wires for safety. Wire gauges are sized from calculated peak current loads, to
+limit heating and keep the power system efficient.
+
+**Control and tracking.** I tuned a PID control loop that brings a disturbed platform
+(spun by hand, for example) to a stop within 0.5 s, and developed a dual-loop PID
+architecture that continuously tracks an optical target. A Flask web monitoring
+interface streams the live camera view with a crosshair overlay, so you can see how
+well the system is tracking.

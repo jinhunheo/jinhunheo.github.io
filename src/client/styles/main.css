@@ -382,6 +382,10 @@ main {
 		position: sticky;
 		top: 24px;
 	}
+	/* The gallery heading sits above full-width figures; sticking would slide it over them. */
+	.band--figures > .section-head {
+		position: static;
+	}
 	.band > .band__body {
 		grid-column: 4 / 13;
 	}

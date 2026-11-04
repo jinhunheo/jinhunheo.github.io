@@ -129,7 +129,8 @@ export function figureSpans(content: Content, items: GalleryItem[]): Span[] {
 
 /**
  * Home page project row: image (or an empty space until one is added) beside
- * the title, summary, "Learn more" and any documents.
+ * the title, summary and "Learn more". Reports are linked only from the project
+ * page's Report section, so every card looks the same.
  */
 export function projectCard(content: Content, p: Project, more: string): Raw {
 	const href = `/projects/${p.slug}/`;
@@ -144,7 +145,6 @@ export function projectCard(content: Content, p: Project, more: string): Raw {
 			<p class="card__text">${p.summary}</p>
 			<div class="card__actions">
 				<a class="btn btn--primary" href="${href}">${more}<span class="visually-hidden"> about ${p.title}</span></a>
-				${p.documents.map((d) => documentLink(content, d, "btn"))}
 			</div>
 		</div>
 	</li>`;

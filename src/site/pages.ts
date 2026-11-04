@@ -67,9 +67,6 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 			<p class="crumb label"><a href="${PROJECTS}">Projects</a> <span aria-hidden="true">/</span> ${site.categories[project.category]}</p>
 			<h1 class="project__title display">${project.title}</h1>
 			<p class="lede">${project.summary}</p>
-			${project.documents.length
-				? html`<div class="actions">${project.documents.map((d, i) => documentLink(ctx.content, d, i === 0 ? "btn btn--primary" : "btn"))}</div>`
-				: ""}
 			${titleBlock(ctx.content, project)}
 		</header>
 		${project.metrics.length
