@@ -238,6 +238,16 @@ describe("project pages", () => {
 		const labels = all(html, /<dt class="label">([^<]+)<\/dt>/).map((m) => m[1]);
 		assert.deepEqual(labels, ["Type", "Organization", "Title", "Duration", "Skills"]);
 	});
+
+	test("code links get a Code section and open safely in a new tab; reports stay off the home page", () => {
+		const home = pages.find((page) => page.route === "/")?.html ?? "";
+		for (const p of content.projects) {
+			const html = pages.find((page) => page.route === `/projects/${p.slug}/`)?.html ?? "";
+			assert.equal(html.includes('id="code"'), p.links.length > 0, p.slug);
+			for (const l of p.links) assert.ok(html.includes(`href="${l.url}" target="_blank" rel="noopener"`), l.url);
+			for (const d of p.documents) assert.ok(!home.includes(`/files/${d.file}`), `${d.file} is linked from the home page`);
+		}
+	});
 });
 
 describe("build modes", () => {

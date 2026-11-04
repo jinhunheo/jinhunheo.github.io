@@ -1,4 +1,4 @@
-import { dimension, documentLink, figures, metricList, picture, projectCard, sectionHead, titleBlock } from "./components.ts";
+import { dimension, documentLink, externalLink, figures, metricList, picture, projectCard, sectionHead, titleBlock } from "./components.ts";
 import type { Project } from "./content.ts";
 import { html } from "./html.ts";
 import { layout } from "./layout.ts";
@@ -89,6 +89,19 @@ export function projectPage(ctx: RenderContext, project: Project): PageOut {
 							(d) => html`<div class="doc">
 								<p class="doc__text">${d.description}</p>
 								${documentLink(ctx.content, d, "btn")}
+							</div>`,
+						)}
+					</div>
+				</section>`
+			: ""}
+		${project.links.length
+			? html`<section class="band" aria-labelledby="code">
+					${sectionHead("code", "Code")}
+					<div class="band__body">
+						${project.links.map(
+							(l) => html`<div class="doc">
+								<p class="doc__text">${l.description}</p>
+								${externalLink(l, "btn")}
 							</div>`,
 						)}
 					</div>

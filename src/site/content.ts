@@ -86,6 +86,13 @@ export interface ProjectDocument {
 	description: string;
 }
 
+/** An outside link, such as the project's code repository. */
+export interface ProjectLink {
+	url: string;
+	label: string;
+	description: string;
+}
+
 export interface Project {
 	slug: string;
 	/** Used everywhere the project is named: home card, project page, pager, search results. */
@@ -105,6 +112,7 @@ export interface Project {
 	/** From the `figures` list in the frontmatter. */
 	gallery: GalleryItem[];
 	documents: ProjectDocument[];
+	links: ProjectLink[];
 	/** Markdown body. */
 	body: string;
 }
@@ -203,6 +211,7 @@ export function loadContent(root: string): Content {
 				metrics: (data.metrics ?? []) as Metric[],
 				gallery,
 				documents: (data.documents ?? []) as ProjectDocument[],
+				links: (data.links ?? []) as ProjectLink[],
 				body,
 			};
 		})
@@ -224,6 +233,9 @@ export function loadContent(root: string): Content {
 	for (const p of projects) {
 		for (const d of p.documents) {
 			if (!(d.file in fileSizes)) throw new Error(`content/projects/${p.slug}.md: document "${d.file}" is not in content/files/`);
+		}
+		for (const l of p.links) {
+			if (!/^https:\/\/[^\s"]+$/.test(l.url)) throw new Error(`content/projects/${p.slug}.md: link "${l.url}" must be a full https:// address`);
 		}
 	}
 

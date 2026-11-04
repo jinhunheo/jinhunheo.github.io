@@ -8,21 +8,22 @@ dates: Jan – May 2026
 skills: [Onshape, Raspberry Pi, PID control, OpenCV, Flask, H-bridge + PWM]
 description: "A reaction wheel testbed that stabilizes a rotating platform, stopping a hand spin within 0.5 s, and autonomously tracks a colored target."
 summary: >-
-  A semester-long project where I designed, manufactured, wired and programmed a
+  A semester-long project where I designed, assembled, programmed and operated a
   reaction wheel testbed that uses the conservation of angular momentum to stabilize a
   rotating platform and autonomously track a colored object. In the real world, the
-  same idea is used to control the orientation of a spacecraft.
-metrics:
-  - value: "0.5"
-    unit: s
-    label: to stop a hand-spun platform
-    featured: true
+  same principle is used to control the orientation of a spacecraft.
 cover: rw-card
+links:
+  - url: https://github.com/jinhunheo/reaction_wheel
+    label: View the code
+    description: >-
+      The testbed's code on GitHub: PID disturbance rejection, cascaded control for
+      target tracking, OpenCV vision and the live camera feed, plus test data and plots.
 documents:
   - file: Reaction-Wheel-Final-Report.pdf
     label: Read the final report
     description: >-
-      Our team's final report: the full mechanical design, wiring, control system and
+      The final report: the full mechanical design, wiring, control system and
       test results, including disturbance rejection and autonomous tracking.
 figures:
   - image: rw-platform
@@ -42,7 +43,7 @@ figures:
   - image: rw-motor-support-drawing
     kind: cad
     alt: Engineering drawing of the motor support, a hollow cylinder with four pillars, 5.138 in tall, with top and side views.
-    caption: My motor support drawing. Four pillars instead of walls keep the wiring reachable.
+    caption: My motor housing drawing. Four pillars instead of walls keep the wiring reachable.
   - image: rw-wiring
     kind: cad
     alt: Wiring schematic with battery, fuse, switch, Raspberry Pi, IMU, H-bridge and a motor with encoder.
@@ -57,18 +58,16 @@ figures:
 
 A reaction wheel is a flywheel driven by a motor. When the motor spins the wheel one
 way, the platform it is mounted on turns the other way, because angular momentum is
-conserved. Satellites use the same principle to change their orientation. Our team of
-four built a testbed around it in the Space & Robotics stream of UT Austin's Freshman
-Research Initiative.
+conserved. Satellites use the same principle to change their orientation.
 
-To show that the testbed can turn to exactly where we want it, and get there quickly,
-we demonstrated that it accurately tracks an optical target and rejects outside
+The testbed was built to show that it can turn to an exact target position, and get
+there quickly. It accurately tracks an optical target and rejects outside
 disturbances, coming to a stop within seconds.
 
 ## My role
 
-My contribution covered every part of the engineering: the hardware, the wiring, and
-the programming and control. Safety was a goal throughout, so that no circuit could
+My contribution spanned the whole system: the hardware, the wiring, and the
+programming and control. Safety was a goal throughout, so that no circuit could
 short and the 3D-printed parts connecting the systems wouldn't wear or break. I also
 wanted the code and PID controller to run smoothly, without jerky motions or
 overshoot.
@@ -78,8 +77,9 @@ solid walls, so the wiring stays easy to reach for troubleshooting and reconfigu
 The motor attaches at the top using its own screw holes, instead of relying on a
 friction fit at the bottom, which would be less sturdy.
 
-**Wiring and power.** I designed the overall system circuitry, with a fuse at the start
-for safety and an H-bridge for bidirectional motor control using PWM. I also brought
+**Wiring and power.** I designed the overall system circuitry around a Raspberry Pi as
+the main system controller: it reads the IMU and drives the motor through an H-bridge
+for bidirectional control using PWM, with a fuse at the start for safety. I also brought
 the system together physically, soldering wires to the electronics and heat-shrinking
 exposed wires for safety. Wire gauges are sized from calculated peak current loads, to
 limit heating and keep the power system efficient.

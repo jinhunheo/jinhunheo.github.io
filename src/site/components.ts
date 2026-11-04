@@ -1,6 +1,6 @@
 // Shared building blocks (see DESIGN.md): pictures, the logo, dimension
 // callouts, title blocks, project cards and the gallery.
-import type { Content, Figure, GalleryItem, ImageEntry, Metric, Project, ProjectDocument } from "./content.ts";
+import type { Content, Figure, GalleryItem, ImageEntry, Metric, Project, ProjectDocument, ProjectLink } from "./content.ts";
 import { html, raw, text, type Raw } from "./html.ts";
 
 const IMG_BASE = "/src/generated/img/";
@@ -46,6 +46,12 @@ export const logoMark = (): Raw =>
 export function documentLink(content: Content, d: ProjectDocument, className: string): Raw {
 	const mb = ((content.fileSizes[d.file] ?? 0) / 1024 / 1024).toFixed(1);
 	return html`<a class="${className}" href="/files/${d.file}" target="_blank" rel="noopener">${d.label}<span class="btn__meta">PDF · ${mb} MB</span></a>`;
+}
+
+/** Button to an outside page (e.g. a GitHub repository), opened in a new tab. */
+export function externalLink(l: ProjectLink, className: string): Raw {
+	const host = new URL(l.url).hostname.replace(/^www\./, "");
+	return html`<a class="${className}" href="${l.url}" target="_blank" rel="noopener">${l.label}<span class="btn__meta">${host === "github.com" ? "GitHub" : host}</span></a>`;
 }
 
 /** A measured value drawn as a dimension line with arrowheads and extension lines. */
