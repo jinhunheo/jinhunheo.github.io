@@ -20,6 +20,13 @@ metrics:
     unit: fps
     label: stable processing rate
 cover: reid-card
+links:
+  - url: https://github.com/jinhunheo/reid
+    label: View the code
+    description: >-
+      The project's code on GitHub: a live ROS 2 pipeline with YOLO person detection,
+      DeepSORT tracking and re-identification models, plus an EMANet re-identification
+      network with its tests.
 figures:
   - image: reid-robot
     kind: photo
