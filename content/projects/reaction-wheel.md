@@ -5,7 +5,7 @@ order: 2
 org: Freshman Research Initiative, Space & Robotics Stream
 role: Student researcher
 dates: Jan – May 2026
-skills: [Onshape, Raspberry Pi, PID control, OpenCV, Flask, H-bridge + PWM]
+skills: [Onshape, Raspberry Pi, Python, PID control, OpenCV, Flask, H-bridge + PWM]
 description: "A reaction wheel testbed that stabilizes a rotating platform, stopping a hand spin within 0.5 s, and autonomously tracks a colored target."
 summary: >-
   A semester-long project where I designed, assembled, programmed and operated a
