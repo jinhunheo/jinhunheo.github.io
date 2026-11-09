@@ -6,11 +6,11 @@ org: Robotic Vision Lab, UT Arlington
 role: Undergraduate Research Assistant
 dates: June – Aug 2026
 skills: [Autodesk Fusion, FDM 3D printing, Snap-fit design, Aluminum extrusion framing]
-description: "3D-printed mounts, clips, an enclosure and cable parts that keep sensors on a Husky UGV through bumpy field runs, from summer research at UT Arlington."
+description: "3D-printed mounts, clips, enclosures and cable parts that keep sensors on a Husky UGV through bumpy field runs, from summer research at UT Arlington."
 summary: >-
   Summer research at UT Arlington's Robotic Vision Lab. I improved how the sensors and
   electronics attach to the Husky UGV, designing and manufacturing 3D-printed mounts,
-  clips, an enclosure and cable-protection parts that hold up to bumpy field data
+  clips, enclosures and cable-protection parts that hold up to bumpy field data
   collection and cut assembly and disassembly time for transport.
 cover: rvl-husky-card
 # Each entry is one spot in the gallery. Entries with `slides:` are swiped through
@@ -137,7 +137,7 @@ field session, while making any sensor quick and easy to take off for troublesho
 Less downtime meant less time out in the sun.
 
 **Sensor mounts.** Mounts with sliding alignment rails and slots for Velcro straps, so
-sensors, communication hardware and electronics like the IMU and GPS go on with far
+sensors, communication hardware and electronics like the HaLowLink and GPS go on with far
 fewer fasteners.
 
 **Snap-fit clips.** Custom clips that hold electronics on the Husky's metal rails
